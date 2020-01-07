@@ -4,9 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Azania Baker-Garcia, ABG, GitHub project, API Hack Capstone. Search for horror movies and find related content.">
     <title>API Hack Wireframe</title>
 </head>
 <body>
-    
+<!--/////////////////////////////MAIN SCREEN///////////////////////////////-->
+    <header>
+        <h1>Greetings. Welcome to the Horror House.</h1>
+    </header>
+    <form>
+        <fieldset>
+            <label>Search for a Movie.
+                <input>
+            </label>
+            <button>ENTER</button>
+
+        </fieldset>
+            <label>Find Similar Movies.
+                <input>
+                <select name="results">
+                    <option value="1">1</option>
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">1</option>
+                    <option value="50">1</option>
+                    <option value="100">1</option>
+                </select>
+            </label>
+                <button>ENTER</button>
+
+        <fieldset>
+
+        </fieldset>
+    </form>
+<!--/////////////////////////////END MAIN SCREEN///////////////////////////////-->
+
+<!--///////////////////////////// (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
+    <header id="js-one-movie-result">
+        <video id="js-trailer"></video>
+    </header>
+    <h1>Movie Title: </h1>
+        <img src="" alt="poster for movie">
+        <picture></picture>
+        <aside>Rating: </aside>
+    <h2>Info/Description</h2>
+    <article></article>
+    <!--copy/paste additional elements above if there are remakes-->
+    <header id="js-remakes-of-movie">
+        <video id="js-trailer"></video>
+    </header>
+    <h1>Movie Title & Year: </h1>
+    <aside>Rating: </aside>
+<!--/////////////////////////////END (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
+
+<!--/////////////////////////////SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
+    <header>
+        <h1>Movie Title: </h1>
+    </header>
+    <section>Info/Description:
+
+    </section>
+    <video>Watch Trailer: </video>
+<!--/////////////////////////////END SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
 </body>
 </html>
