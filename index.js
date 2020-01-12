@@ -1,5 +1,11 @@
 'use strict'
 
+//store API keys in global variables
+const YouTubeKey = "AIzaSyD8IZXLYJlTrJJP6WBnYPzOu8UbqNNaqRE"
+
+
+
+//save API base URLs to modify according to search
 
 //format query parameters
     function formatQueryParams() {
