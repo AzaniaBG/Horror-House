@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Azania Baker-Garcia, ABG, GitHub project, API Hack Capstone. Search for horror movies and find related content.">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>API Hack Wireframe</title>
 </head>
 <body>
 <!--/////////////////////////////MAIN SCREEN///////////////////////////////-->
+    
     <header>
         <h1>Greetings. Welcome to the Horror House.</h1>
-        <p>Enter if you dare</p>
+        <h2>Enter if you dare</h2>
     </header>
     <form>
         <fieldset>
@@ -19,8 +21,9 @@
                 <input>
             </label>
             <button>ENTER</button>
-
         </fieldset>
+
+        <fieldset>
             <label>Find Similar Movies.
                 <input>
                 <select name="results">
@@ -34,40 +37,41 @@
                 </select>
             </label>
                 <button>ENTER</button>
-
-        <fieldset>
-
         </fieldset>
     </form>
 <!--/////////////////////////////END MAIN SCREEN///////////////////////////////-->
 
 <!--///////////////////////////// (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
-    <header id="js-one-movie-result">
-        <video id="js-trailer"></video>
-    </header>
-    <h1>Movie Title: </h1>
-        <img src="" alt="poster for movie">
-        <picture></picture>
+    
+    <div>
+        <header id="js-one-movie-result">
+                <video id="js-trailer"></video>
+        </header>
+        <h1>Movie Title: </h1>
+            <img src="" alt="poster for movie">
+            <picture></picture>
+            <aside>Rating: </aside>
+        <h2>Info/Description</h2>
+        <article></article>
+        <!--copy/paste additional elements above if there are remakes-->
+        <header id="js-remakes-of-movie">
+            <video id="js-trailer"></video>
+        </header>
+        <h1>Movie Title & Year: </h1>
         <aside>Rating: </aside>
-    <h2>Info/Description</h2>
-    <article></article>
-    <!--copy/paste additional elements above if there are remakes-->
-    <header id="js-remakes-of-movie">
-        <video id="js-trailer"></video>
-    </header>
-    <h1>Movie Title & Year: </h1>
-    <aside>Rating: </aside>
+    </div>
 <!--/////////////////////////////END (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
 
 <!--/////////////////////////////SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
-    <header id="js-similar-movie-results">
-        <h1>Movie Title: </h1>
-    </header>
-    <section>Info/Description:
+    <div>
+        <header id="js-similar-movie-results">
+            <h1>Movie Title: </h1>
+        </header>
+        <section>Info/Description:
 
-    </section>
-    <video>Watch Trailer: </video>
-    
+        </section>
+        <video>Watch Trailer: </video>
+    </div>
 <!--/////////////////////////////END SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
 <script
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
