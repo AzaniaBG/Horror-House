@@ -40,8 +40,17 @@ console.log(`snippetURL is ${snippetURL}`)
         fetch(snippetURL).then(response =>response.json()).then(responseJson => {
         //responseJson returns ITEMS array, containing ID and snippet objects 
 console.log(responseJson)
-        //for each item in the ITEMS Array, return an array of string IDs
-        responseJson.items.map(item => getVideos(item.id["videoId"]));
+        //for each item in the ITEMS Array, return an array of string IDs, titles, and images
+        responseJson.items.map(item => {
+            let vidIds = item.id["videoId"];
+            getVideos(vidIds);
+            let titles = item.snippet["title"];
+            displayMovieInfo(titles);
+            let images = item.snippet.thumbnails;
+            getImageSize(images);
+
+console.log(`titles is ${titles}`)
+            });
 
         })
         
@@ -69,13 +78,20 @@ console.log(`vidURL is ${vidURL}`)
         return `<video id="${vidId}" src="${vidId}" class="js-trailer">Trailer: ${vidId}</video>`;
 
     }
-    
+    function getImageSize(images) {
+        let imageStrings = 
+            `<img id="default-img" src="${images.default["url"]}">
+            <img id="medium-img" src="${images.medium["url"]}">
+            <img id="hight-img" src="${images.high["url"]}">`;
+    console.log(`imageStrings is ${imageStrings}`)
+        
+    }
 //display information related to search results 
-    function displayMovieInfo() {
+    function displayMovieInfo(titles) {
     //display movie name and year
-
+        console.log(`<h3>${titles}</h3>`)
     //display poster image for movie result(s)
-    
+        
     //display rating
 
     //display additional information
