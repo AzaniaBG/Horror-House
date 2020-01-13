@@ -22,38 +22,40 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
     //format YouTube parameters for VIDEOS endpoint
 
     }
-//call the YouTube API to retrieve video IDs, etc.
+//GET movie info
+    function getMovieSnippets(query, maxResults) {
+        let fieldsParams = "items(snippet, id/videoId)"
 
-    function getVideoIds(query, maxResults) {
-        let fieldProps = `items(id/videoId)`
-    //create an object of query parameters 
         const params = {
             q: query,
             maxNum: maxResults,
             part: "snippet",
-            fields: fieldProps, 
+            type: "video", 
+            fields: fieldsParams,
             key: YouTubeKey
         }
-    //format parameters according to YouTube docs
         const queryString = formatQueryParams(params);
-        const searchURL = YouTubeURL + `search?` + queryString;
-console.log(`searchURL is ${searchURL}`)
-    //GET search results; then only retrieve body of response; then log the response data
-        fetch(searchURL).then(response =>response.json()).then(responseJson => {
-console.log(responseJson)
-            responseJson.items.map(item => {
-                let vidId = item["id"];
-console.log(vidId)
-                displayTrailers(vidId);
-            })
-        });
+        const snippetURL = YouTubeURL + `search?` + queryString;
+console.log(`snippetURL is ${snippetURL}`)
+        fetch(snippetURL).then(response =>response.json()).then(responseJson => console.log(responseJson))
+//             {
+// //console.log(responseJson)
+//             let titles = responseJson.items.map(item => item.snippet["title"]);
+// //console.log(`titles is ${titles}`)
+//             let defaultImages = responseJson.items.map(item => item.snippet.thumbnails.default["url"])
+// //console.log(`defaultImg is ${defaultImage}`)
+//         //for each item, return the video ID (string)
+//             let vidIds = responseJson.items.map(item => item.id["videoId"]);//vidIds returns an OBJECT          
+//         });
+
     }
+
 //call the YouTube API to retrieve video players/trailers
     function getVideos(vidId) {
         const params = {
             id: vidId,
             part: "snippet,player",
-            type: video, 
+            type: "video", 
             key: YouTubeKey
         }
         const queryString = formatQueryParams(params);
@@ -63,7 +65,7 @@ console.log(`vidURL is ${vidURL}`)
     }
 
     function displayTrailers(vidId) {
-console.log(`displayTrailers ran`)
+//console.log(`displayTrailers ran`)
         
         return `<video id="${vidId}" src="${vidId}" class="js-trailer">Trailer: ${vidId}</video>`;
 
@@ -74,7 +76,7 @@ console.log(`displayTrailers ran`)
     //display movie name and year
 
     //display poster image for movie result(s)
-
+    
     //display rating
 
     //display additional information
@@ -94,6 +96,7 @@ console.log(`displayTrailers ran`)
 //watch for the form submission
     function watchForm() {
         getVideoIds("Candyman", 5);
+        getMovieSnippets("Candyman", 5)
 
     //capture the values of the user's input and pass those values to the GET function
 
