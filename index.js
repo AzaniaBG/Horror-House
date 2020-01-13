@@ -41,7 +41,6 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
 
         const params = {
             q: query,
-            maxNum: maxResults,
             part: "snippet",
             type: "video", 
             fields: fieldsParams,
@@ -52,7 +51,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
 //console.log(`snippetURL is ${snippetURL}`)
         fetch(snippetURL).then(response =>response.json()).then(responseJson => {
         //responseJson returns ITEMS array, containing ID and snippet objects 
-//console.log(responseJson)
+console.log(responseJson)
         //for each item in the ITEMS Array, return an array of string IDs, titles, and images
         responseJson.items.map(item => {
             let vidIds = item.id["videoId"];
@@ -60,8 +59,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             let titles = item.snippet["title"];
             
             let images = item.snippet.thumbnails;
-            displayMovieInfo(titles, images);
-            
+            displayMovieInfo(titles, images);       
 //console.log(`titles is ${titles}`)
             });
 
@@ -102,15 +100,20 @@ console.log(`vidURL is ${vidURL}`)
     
 //display information related to search results for one movie
     function displayMovieInfo(titles, images) {
-    //display movie name and year
-        console.log(`<h3>${titles}</h3>`)
+console.log(`displayMovie ran`)
+    //when user clicks ENTER, show movie results
+        $("#js-one-movie-button").on("click", event => {
+        event.preventDefault();
     //display poster image for movie result(s)
         let defaultImg = images.default["url"];
         let mediumImg = images.medium["url"];
         let highImg = images.high["url"];
-//console.log(`highImg is ${highImg}`)
-//console.log(`mediumImg is ${mediumImg}`)
-        $(".js-movie-img").html(`<img src="${defaultImg}">`);
+console.log("testing, testing")
+        $("h1").append(`<p>Testing Testing</p>`)
+    })
+    //display movie name and year
+console.log(`<h3>${titles}</h3>`)
+    
     //display rating
 
     //display additional information (e.g., articles/reviews)
