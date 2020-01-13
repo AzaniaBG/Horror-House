@@ -36,10 +36,10 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         }
         const queryString = formatQueryParams(params);
         const snippetURL = YouTubeURL + `search?` + queryString;
-console.log(`snippetURL is ${snippetURL}`)
+//console.log(`snippetURL is ${snippetURL}`)
         fetch(snippetURL).then(response =>response.json()).then(responseJson => {
         //responseJson returns ITEMS array, containing ID and snippet objects 
-console.log(responseJson)
+//console.log(responseJson)
         //for each item in the ITEMS Array, return an array of string IDs, titles, and images
         responseJson.items.map(item => {
             let vidIds = item.id["videoId"];
@@ -49,7 +49,7 @@ console.log(responseJson)
             let images = item.snippet.thumbnails;
             displayMovieInfo(titles, images);
             
-console.log(`titles is ${titles}`)
+//console.log(`titles is ${titles}`)
             });
 
         })
@@ -87,8 +87,8 @@ console.log(`vidURL is ${vidURL}`)
         let defaultImg = images.default["url"];
         let mediumImg = images.medium["url"];
         let highImg = images.high["url"];
-console.log(`highImg is ${highImg}`)
-console.log(`mediumImg is ${mediumImg}`)
+//console.log(`highImg is ${highImg}`)
+//console.log(`mediumImg is ${mediumImg}`)
         $(".js-movie-img").html(`<img src="${defaultImg}">`);
     //display rating
 
@@ -109,10 +109,20 @@ console.log(`mediumImg is ${mediumImg}`)
 //watch for the form submission
     function watchForm() {
         
-        getMovieSnippets("Candyman", 5)
+        
+    //when a user submits a search; get the value
+        $("form").on("submit", event => {
+            event.preventDefault();
+            let searchTerm = $("#js-one-movie-search").val();
+            getMovieSnippets(searchTerm, 5);
+console.log(`searchTerm is ${searchTerm}`)
+            }
+
+        )
 
     //capture the values of the user's input and pass those values to the GET function
 
     }
+    
 //ACTIVATE APP--call j$ and pass in a callback function to run when the page loads
 $(watchForm)
