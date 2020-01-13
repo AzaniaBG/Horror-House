@@ -45,10 +45,10 @@ console.log(responseJson)
             let vidIds = item.id["videoId"];
             getVideos(vidIds);
             let titles = item.snippet["title"];
-            displayMovieInfo(titles);
+            
             let images = item.snippet.thumbnails;
-            getImageSize(images);
-
+            displayMovieInfo(titles, images);
+            
 console.log(`titles is ${titles}`)
             });
 
@@ -78,20 +78,18 @@ console.log(`vidURL is ${vidURL}`)
         return `<video id="${vidId}" src="${vidId}" class="js-trailer">Trailer: ${vidId}</video>`;
 
     }
-    function getImageSize(images) {
-        let imageStrings = 
-            `<img id="default-img" src="${images.default["url"]}">
-            <img id="medium-img" src="${images.medium["url"]}">
-            <img id="hight-img" src="${images.high["url"]}">`;
-    console.log(`imageStrings is ${imageStrings}`)
-        
-    }
+    
 //display information related to search results 
-    function displayMovieInfo(titles) {
+    function displayMovieInfo(titles, images) {
     //display movie name and year
         console.log(`<h3>${titles}</h3>`)
     //display poster image for movie result(s)
-        
+        let defaultImg = images.default["url"];
+        let mediumImg = images.medium["url"];
+        let highImg = images.high["url"];
+console.log(`highImg is ${highImg}`)
+console.log(`mediumImg is ${mediumImg}`)
+        $(".js-movie-img").html(`<img src="${defaultImg}">`);
     //display rating
 
     //display additional information
