@@ -37,30 +37,29 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         const queryString = formatQueryParams(params);
         const snippetURL = YouTubeURL + `search?` + queryString;
 console.log(`snippetURL is ${snippetURL}`)
-        fetch(snippetURL).then(response =>response.json()).then(responseJson => console.log(responseJson))
-//             {
-// //console.log(responseJson)
-//             let titles = responseJson.items.map(item => item.snippet["title"]);
-// //console.log(`titles is ${titles}`)
-//             let defaultImages = responseJson.items.map(item => item.snippet.thumbnails.default["url"])
-// //console.log(`defaultImg is ${defaultImage}`)
-//         //for each item, return the video ID (string)
-//             let vidIds = responseJson.items.map(item => item.id["videoId"]);//vidIds returns an OBJECT          
-//         });
+        fetch(snippetURL).then(response =>response.json()).then(responseJson => {
+        //responseJson returns ITEMS array, containing ID and snippet objects 
+console.log(responseJson)
+        //for each item in the ITEMS Array, return an array of string IDs
+        responseJson.items.map(item => getVideos(item.id["videoId"]));
 
+        })
+        
     }
 
 //call the YouTube API to retrieve video players/trailers
     function getVideos(vidId) {
+        let fieldParams = "items(etag, player)"
         const params = {
             id: vidId,
-            part: "snippet,player",
-            type: "video", 
+            part: "player",
+            fields: fieldParams,
             key: YouTubeKey
         }
         const queryString = formatQueryParams(params);
-        const vidURL = YouTubeURL + `search?` + queryString;
+        const vidURL = YouTubeURL + `videos?` + queryString;
 console.log(`vidURL is ${vidURL}`)
+        fetch(vidURL).then(response => response.json()).then(responseJson => console.log(responseJson));
 
     }
 
@@ -95,7 +94,7 @@ console.log(`vidURL is ${vidURL}`)
     }
 //watch for the form submission
     function watchForm() {
-        getVideoIds("Candyman", 5);
+        
         getMovieSnippets("Candyman", 5)
 
     //capture the values of the user's input and pass those values to the GET function
