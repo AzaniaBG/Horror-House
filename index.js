@@ -1,9 +1,12 @@
 'use strict'
 
 //store API keys in global variables to access for API calls
+const tmdbKey = "b81d09aa5f188c95ba4dc2e4336459b4"
 const YouTubeKey = "AIzaSyD9L4wcH4JuIUXlNkavwNEQl-kH2_MsIOg"
 
 //save API base URLs to modify according to search
+const tmdbURL = "https://api.themoviedb.org/3/"
+//config for ID: https://api.themoviedb.org/3/configuration?api_key=b81d09aa5f188c95ba4dc2e4336459b4
 const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
 //https://www.googleapis.com/youtube/v3/videos?&part=snippet&fields=items(snippet)&key=AIzaSyD9L4wcH4JuIUXlNkavwNEQl-kH2_MsIOg
 //test variables
