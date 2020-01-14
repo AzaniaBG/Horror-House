@@ -5,7 +5,7 @@ const tmdbKey = "b81d09aa5f188c95ba4dc2e4336459b4"
 //const YouTubeKey = "AIzaSyD9L4wcH4JuIUXlNkavwNEQl-kH2_MsIOg"
 
 //save API base URLs to modify according to search
-const tmdbURL = "https://api.themoviedb.org/3/search/"
+const tmdbURL = "https://api.themoviedb.org/3/"
 //config for ID: https://api.themoviedb.org/3/configuration?api_key=b81d09aa5f188c95ba4dc2e4336459b4
 //const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
 //https://www.googleapis.com/youtube/v3/videos?&part=snippet&fields=items(snippet)&key=AIzaSyD9L4wcH4JuIUXlNkavwNEQl-kH2_MsIOg
@@ -52,14 +52,14 @@ const tmdbURL = "https://api.themoviedb.org/3/search/"
         }
         //let multiRequest = "&append_to_response=images"
         const queryString = formatQueryParams(params);
-        const idURL = tmdbURL + `movie?`+ queryString;
+        const idURL = tmdbURL + `search/movie?`+ queryString;
         //GET movie ID with fetch
         fetch(idURL).then(response => response.json()).then(responseJson => getMovieImages(responseJson));      
     }
 
     function getMovieImages(responseJson) {
-console.log(`responseJson is`);
-console.log(responseJson);
+// console.log(`responseJson is`);
+// console.log(responseJson);
         let movieID = responseJson.results[0]["id"];
 
         const params = {
@@ -74,7 +74,21 @@ console.log(responseJson);
         const queryString = formatQueryParams(params);
         const idURL = tmdbURL + `movie/`+ `${movieID}?` + queryString;
 console.log(`idURL is ${idURL}`)
-        //fetch(idURL).then(response => response.json()).then(responseJson => console.log(responseJson));
+        fetch(idURL).then(response => response.json()).then(responseJson => {
+console.log(responseJson)
+    displayMovieImages(responseJson)
+        });
+    }
+    function displayMovieImages(responseJson) {
+        let genres = responseJson.genres;
+        genres.map(genre => {
+console.log(genre["name"])
+console.log(genre["name"].indexOf("Horror") > -1)
+        })
+        let links = responseJson.homepage;
+        $("h1").append(`<img src="${links}"/><a href=""${links}></a>`)
+//console.log(links);
+
     }
 //GET movie info
 //     function getMovieSnippets(query) {
