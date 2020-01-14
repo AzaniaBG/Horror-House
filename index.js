@@ -1,7 +1,7 @@
 'use strict'
 
 //store API keys in global variables to access for API calls
-const YouTubeKey = "AIzaSyAs4XB1Jqg3e714vdB8t4QJ4zGIurzYS8E"
+const YouTubeKey = "AIzaSyD9L4wcH4JuIUXlNkavwNEQl-kH2_MsIOg"
 
 //save API base URLs to modify according to search
 const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
@@ -50,21 +50,15 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         const snippetURL = YouTubeURL + `search?` + queryString;
 //console.log(`snippetURL is ${snippetURL}`)
         fetch(snippetURL).then(response =>response.json()).then(responseJson => {
+            displayMovieInfo(responseJson);
+            displaySimilarMovies(responseJson);
+            getVideos(responseJson);
+
         //responseJson returns ITEMS array, containing ID and snippet objects 
 console.log(responseJson)
         //for each item in the ITEMS Array, return an array of string IDs, titles, and images
-        responseJson.items.map(item => {
-            let vidIds = item.id["videoId"];
-            getVideos(vidIds);
-            let titles = item.snippet["title"];
-            
-            let images = item.snippet.thumbnails;
-            displayMovieInfo(titles, images);       
-//console.log(`titles is ${titles}`)
-            });
-
         })
-        
+       
     }
 
 //call the YouTube API to retrieve video players/trailers and video info
@@ -99,35 +93,37 @@ console.log(`vidURL is ${vidURL}`)
     }
     
 //display information related to search results for one movie
-    function displayMovieInfo(titles, images) {
-console.log(`displayMovie ran`)
-    //when user clicks ENTER, show movie results
-        $("#js-one-movie-button").on("click", event => {
-        event.preventDefault();
-    //display poster image for movie result(s)
-        let defaultImg = images.default["url"];
-        let mediumImg = images.medium["url"];
-        let highImg = images.high["url"];
-console.log("testing, testing")
-        $("h1").append(`<p>Testing Testing</p>`)
-    })
+    function displayMovieInfo(responseJson) {
+        responseJson.items.map(item => {
+            let vidIds = item.id["videoId"];
+            getVideos(vidIds);
+            let titles = item.snippet["title"];
+            
+            let images = item.snippet.thumbnails;
+            displayMovieInfo(titles, images);       
+//console.log(`titles is ${titles}`)
+            });
     //display movie name and year
-console.log(`<h3>${titles}</h3>`)
-    
+console.log(`<h3>${titles}</h3>`)    
     //display rating
 
-    //display additional information (e.g., articles/reviews)
-    
+    //display additional information (e.g., articles/reviews)   
     }
 
 //list similar movies based on search results
     function displaySimilarMovies() {
+        responseJson.items.map(item => {
+        let vidIds = item.id["videoId"];
+        getVideos(vidIds);
+        let titles = item.snippet["title"];
+        
+        let images = item.snippet.thumbnails;
+        displayMovieInfo(titles, images);       
+//console.log(`titles is ${titles}`)
+        });
     //display movie name and year
-
     //display movie information
-
     //user can click on result and view information with displayMovieInfo function
-
     }
 //watch the form and get user input
     function watchForm() {   
