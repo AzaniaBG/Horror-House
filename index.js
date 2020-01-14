@@ -76,18 +76,21 @@ const tmdbURL = "https://api.themoviedb.org/3/"
 console.log(`idURL is ${idURL}`)
         fetch(idURL).then(response => response.json()).then(responseJson => {
 console.log(responseJson)
-    displayMovieImages(responseJson)
+        
+        displayMovieImages(responseJson)
         });
     }
+
     function displayMovieImages(responseJson) {
-        let genres = responseJson.genres;
-        genres.map(genre => {
-console.log(genre["name"])
-console.log(genre["name"].indexOf("Horror") > -1)
-        })
-        let links = responseJson.homepage;
-        $("h1").append(`<img src="${links}"/><a href=""${links}></a>`)
-//console.log(links);
+        let size = 'w400'
+console.log(responseJson)
+        let posterPath = responseJson["poster_path"]
+        let imageURL = "https://image.tmdb.org/t/p/";
+        //let movieID = ;
+        
+        const idURL = imageURL + size + posterPath;
+console.log(`idURL is ${idURL}`)
+        $("h1").append(`<img src="${idURL}"/>`);
 
     }
 //GET movie info
