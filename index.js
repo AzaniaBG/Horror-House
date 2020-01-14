@@ -5,7 +5,7 @@ const YouTubeKey = "AIzaSyD9L4wcH4JuIUXlNkavwNEQl-kH2_MsIOg"
 
 //save API base URLs to modify according to search
 const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
-
+//https://www.googleapis.com/youtube/v3/videos?&part=snippet&fields=items(snippet)&key=AIzaSyD9L4wcH4JuIUXlNkavwNEQl-kH2_MsIOg
 //test variables
 
 
@@ -38,9 +38,10 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
 //GET movie info
     function getMovieSnippets(query) {
         let fieldsParams = "items(snippet, id/videoId)"
-
+        let trailerQuery = query + ",trailer"
+console.log(`trailerQuery is ${trailerQuery}`)
         const params = {
-            q: query,
+            q: trailerQuery,
             part: "snippet",
             type: "video", 
             fields: fieldsParams,
@@ -48,7 +49,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         }
         const queryString = formatQueryParams(params);
         const snippetURL = YouTubeURL + `search?` + queryString;
-//console.log(`snippetURL is ${snippetURL}`)
+console.log(`snippetURL is ${snippetURL}`)
         fetch(snippetURL).then(response =>response.json()).then(responseJson => {
             displayMovieInfo(responseJson);
             displaySimilarMovies(responseJson);
@@ -94,15 +95,16 @@ console.log(`vidURL is ${vidURL}`)
     
 //display information related to search results for one movie
     function displayMovieInfo(responseJson) {
-        responseJson.items.map(item => {
-            let vidIds = item.id["videoId"];
-            getVideos(vidIds);
-            let titles = item.snippet["title"];
+console.log(responseJson)
+//         responseJson.items.map(item => {
+//             let vidIds = item.id["videoId"];
+//             getVideos(vidIds);
+//             let titles = item.snippet["title"];
             
-            let images = item.snippet.thumbnails;
-            displayMovieInfo(titles, images);       
-//console.log(`titles is ${titles}`)
-            });
+//             let images = item.snippet.thumbnails;
+//             displayMovieInfo(titles, images);       
+// //console.log(`titles is ${titles}`)
+//             });
     //display movie name and year
 console.log(`<h3>${titles}</h3>`)    
     //display rating
