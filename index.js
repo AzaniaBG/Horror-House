@@ -39,7 +39,7 @@ console.log(`imageQueryItems is ${imageQueryItems}`)
 console.log(`searchURL is ${searchURL}`)
         fetch(searchURL)
            .then(response => response.json())
-           .then(responseJson => displayMovieInfo(responseJson));
+           .then(responseJson => displayMovieInfo(responseJson, query));
     }
 
     
@@ -59,10 +59,13 @@ console.log(`searchURL is ${searchURL}`)
 
 
 //display information related to search results for one movie
-    function displayMovieInfo(responseJson) {
+    function displayMovieInfo(responseJson, query) {
 console.log(responseJson)
         let movieData = responseJson.Search;
         movieData.map(item => {
+            if(query === item["Title"]) {
+console.log(`title match`)
+            }
             let movieInfo =
             `<p>${item["Title"]} ${item["Year"]}</p>
             <img src="${item["Poster"]}"/>`
