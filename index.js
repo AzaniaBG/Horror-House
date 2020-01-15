@@ -6,7 +6,8 @@ const omdbKey = "cb95d063"
 //const YouTubeKey = "AIzaSyD9L4wcH4JuIUXlNkavwNEQl-kH2_MsIOg"
 
 //save API base URLs to modify according to search
-const omdbURL = "http://img.omdbapi.com/?apikey=cb95d063"
+const omdbImgURL = "http://img.omdbapi.com/?"
+const omdbSearchURL = "http://www.omdbapi.com/?"
 //const tmdbURL = "https://api.themoviedb.org/3/"
 //config for ID: https://api.themoviedb.org/3/configuration?api_key=b81d09aa5f188c95ba4dc2e4336459b4
 //const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
@@ -16,9 +17,29 @@ const omdbURL = "http://img.omdbapi.com/?apikey=cb95d063"
 
 //format query parameters
     function formatOmdbQueryParams(params) {
+    //return an array of keys in the `params` object and, from that array, create a string from each property: key=value, and join the key/value properties with &
+        const imageQueryItems = Object.keys(params).map(key => `${key}=${encodeURIComponent(params[key])}`);
+console.log(`imageQueryItems is ${imageQueryItems}`)
+        return imageQueryItems.join("&");
 
     }
-    
+
+    function getMoviePoster(query) {
+        const params = {
+            apikey: omdbKey,
+            type: "movie",
+            s: query,
+            //page: 1,
+        }
+
+        const queryString = formatOmdbQueryParams(params);
+        const imageURL = omdbImgURL + queryString;
+        const searchURL = omdbSearchURL + queryString;
+//console.log(`imageURL is ${imageURL}`);
+console.log(`searchURL is ${searchURL}`)
+        fetch(searchURL).then(response => response.json()).then(responseJson => console.log(responseJson));
+    }
+
     function formatQueryParams(params) {
     //create an array of keys from the PARAMS `object` argument and, for each key, create a formatted key-pair value string
         const searchQueryItems = Object.keys(params).map(key => `${key}=${encodeURIComponent(params[key])}`);
@@ -32,73 +53,73 @@ const omdbURL = "http://img.omdbapi.com/?apikey=cb95d063"
 
     }
 //find similar movies and list results according to maxResults specified
-    function getSimilarMovies(query, maxResults) {
+//     function getSimilarMovies(query, maxResults) {
         
 
-        // const params = {
-        //     q: query,
-        //     maxNum: maxResults,
-        //     part: "snippet",
-        //     type: "video", 
-        //     fields: fieldsParams,
-        //     key: YouTubeKey
-        // }
-    }
-//GET movie images
-    function getMovieId(query) {
+//         // const params = {
+//         //     q: query,
+//         //     maxNum: maxResults,
+//         //     part: "snippet",
+//         //     type: "video", 
+//         //     fields: fieldsParams,
+//         //     key: YouTubeKey
+//         // }
+//     }
+// //GET movie images
+//     function getMovieId(query) {
 
-        const params = {
-            query: query,
-            language: "en-US",
-            api_key: tmdbKey,
-            page: 1,
-            include_adult: false,
-            //external_source: "imdb_id",
-            //append_to_response: "images",
-        }
-        //let multiRequest = "&append_to_response=images"
-        const queryString = formatQueryParams(params);
-        const idURL = tmdbURL + `search/movie?`+ queryString;
-        //GET movie ID with fetch
-        fetch(idURL).then(response => response.json()).then(responseJson => getMovieImages(responseJson));      
-    }
+//         const params = {
+//             query: query,
+//             language: "en-US",
+//             api_key: tmdbKey,
+//             page: 1,
+//             include_adult: false,
+//             //external_source: "imdb_id",
+//             //append_to_response: "images",
+//         }
+//         //let multiRequest = "&append_to_response=images"
+//         const queryString = formatQueryParams(params);
+//         const idURL = tmdbURL + `search/movie?`+ queryString;
+//         //GET movie ID with fetch
+//         fetch(idURL).then(response => response.json()).then(responseJson => getMovieImages(responseJson));      
+//     }
 
-    function getMovieImages(responseJson) {
-// console.log(`responseJson is`);
-// console.log(responseJson);
-        let movieID = responseJson.results[0]["id"];
+//     function getMovieImages(responseJson) {
+// // console.log(`responseJson is`);
+// // console.log(responseJson);
+//         let movieID = responseJson.results[0]["id"];
 
-        const params = {
-            language: "en-US",
-            api_key: tmdbKey,
-            page: 1,
-            include_adult: false,
-            //external_source: "imdb_id",
-            append_to_response: "images",
-        }
-        //GET movie image with movie ID
-        const queryString = formatQueryParams(params);
-        const idURL = tmdbURL + `movie/`+ `${movieID}?` + queryString;
-console.log(`idURL is ${idURL}`)
-        fetch(idURL).then(response => response.json()).then(responseJson => {
-console.log(responseJson)
+//         const params = {
+//             language: "en-US",
+//             api_key: tmdbKey,
+//             page: 1,
+//             include_adult: false,
+//             //external_source: "imdb_id",
+//             append_to_response: "images",
+//         }
+//         //GET movie image with movie ID
+//         const queryString = formatQueryParams(params);
+//         const idURL = tmdbURL + `movie/`+ `${movieID}?` + queryString;
+// console.log(`idURL is ${idURL}`)
+//         fetch(idURL).then(response => response.json()).then(responseJson => {
+// console.log(responseJson)
         
-        displayMovieImages(responseJson)
-        });
-    }
+//         displayMovieImages(responseJson)
+//         });
+//     }
 
-    function displayMovieImages(responseJson) {
-        let size = 'w400'
-console.log(responseJson)
-        let posterPath = responseJson["poster_path"]
-        let imageURL = "https://image.tmdb.org/t/p/";
-        //let movieID = ;
+//     function displayMovieImages(responseJson) {
+//         let size = 'w400'
+// console.log(responseJson)
+//         let posterPath = responseJson["poster_path"]
+//         let imageURL = "https://image.tmdb.org/t/p/";
+//         //let movieID = ;
         
-        const idURL = imageURL + size + posterPath;
-console.log(`idURL is ${idURL}`)
-        $("h1").append(`<img src="${idURL}"/>`);
+//         const idURL = imageURL + size + posterPath;
+// console.log(`idURL is ${idURL}`)
+//         $("h1").append(`<img src="${idURL}"/>`);
 
-    }
+//     }
 //GET movie info
 //     function getMovieSnippets(query) {
 //         let fieldsParams = "items(snippet, id/videoId)"
@@ -198,7 +219,7 @@ console.log(`idURL is ${idURL}`)
             event.preventDefault();
             let searchTerm = $("#js-one-movie-search").val();
     //capture the values of the user's input and pass those values to the GET function
-        getMovieId(searchTerm);
+        getMoviePoster(searchTerm);
             //getMovieSnippets(searchTerm);
 //console.log(`searchTerm is ${searchTerm}`)
             }
