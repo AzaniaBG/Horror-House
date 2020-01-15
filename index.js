@@ -37,7 +37,9 @@ console.log(`imageQueryItems is ${imageQueryItems}`)
         const searchURL = omdbSearchURL + queryString;
 //console.log(`imageURL is ${imageURL}`);
 console.log(`searchURL is ${searchURL}`)
-        fetch(searchURL).then(response => response.json()).then(responseJson => console.log(responseJson));
+        fetch(searchURL)
+           .then(response => response.json())
+           .then(responseJson => displayMovieInfo(responseJson));
     }
 
     
@@ -54,44 +56,27 @@ console.log(`searchURL is ${searchURL}`)
 //         //     key: YouTubeKey
 //         // }
 //     }
-// //GET movie images
-//     function getMovieId(query) {
-
-//         const params = {
-//             query: query,
-//             language: "en-US",
-//             api_key: tmdbKey,
-//             page: 1,
-//             include_adult: false,
-//             //external_source: "imdb_id",
-//             //append_to_response: "images",
-//         }
-//         //let multiRequest = "&append_to_response=images"
-//         const queryString = formatQueryParams(params);
-//         const idURL = tmdbURL + `search/movie?`+ queryString;
-//         //GET movie ID with fetch
-//         fetch(idURL).then(response => response.json()).then(responseJson => getMovieImages(responseJson));      
-//     }
 
 
-// //display information related to search results for one movie
-//     function displayMovieInfo(responseJson) {
-// console.log(responseJson)
-// //         responseJson.items.map(item => {
-// //             let vidIds = item.id["videoId"];
-// //             getVideos(vidIds);
-// //             let titles = item.snippet["title"];
-            
-// //             let images = item.snippet.thumbnails;
-// //             displayMovieInfo(titles, images);       
-// // //console.log(`titles is ${titles}`)
-// //             });
-//     //display movie name and year
-// console.log(`<h3>${titles}</h3>`)    
-//     //display rating
+//display information related to search results for one movie
+    function displayMovieInfo(responseJson) {
+console.log(responseJson)
+        let movieData = responseJson.Search;
+        movieData.map(item => {
+            let movieInfo =
+            `<p>${item["Title"]} ${item["Year"]}</p>
+            <img src="${item["Poster"]}"/>`
+            $("h1").append(movieInfo);          
+//console.log(movieId)
+//console.log(moviePoster)
+        });
+    //display movie name and year
+    
 
-//     //display additional information (e.g., articles/reviews)   
-//     }
+    //display rating
+
+    //display additional information (e.g., articles/reviews)   
+    }
 
 //watch the form and get user input
     function watchForm() {   
@@ -100,17 +85,11 @@ console.log(`searchURL is ${searchURL}`)
             event.preventDefault();
             let searchTerm = $("#js-one-movie-search").val();
     //capture the values of the user's input and pass those values to the GET function
-        getMoviePoster(searchTerm);
-            //getMovieSnippets(searchTerm);
-//console.log(`searchTerm is ${searchTerm}`)
-            }
+        getMovieInfo(searchTerm);
+        });
     //when a user searches for similar movies and max Results, get the value, include those values in GET request
 
     //capture user's input values and pass them to the GET function: getSimilarMovies(query, maxResults)
-
-        )
-
-    
 
     }
     
