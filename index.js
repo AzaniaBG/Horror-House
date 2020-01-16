@@ -39,7 +39,10 @@ console.log(`imageQueryItems is ${imageQueryItems}`)
 console.log(`searchURL is ${searchURL}`)
         fetch(searchURL)
            .then(response => response.json())
-           .then(responseJson => displayMovieInfo(responseJson, query));
+           .then(responseJson => {
+               //displayMovieInfo(responseJson, query);
+               getVideoPlayer(responseJson);
+            });
     }
 
     
@@ -80,7 +83,15 @@ console.log(`title match`)
 
     //display additional information (e.g., articles/reviews)   
     }
+    function getVideoPlayer(responseJson) {
+console.log(responseJson)
+        let movieInfo = responseJson.Search
+        let videoIDs = movieInfo.map(info => console.log(info["imdbID"]));
+        
+    }
+    function displayVideoTrailer() {
 
+    }
 //watch the form and get user input
     function watchForm() {   
     //when a user searches for one movie, get the value, include that value in GET request
