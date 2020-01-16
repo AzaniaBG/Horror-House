@@ -2,13 +2,13 @@
 
 //store API keys in global variables to access for API calls
 const omdbKey = "cb95d063"
-//const tmdbKey = "b81d09aa5f188c95ba4dc2e4336459b4"
+const tmdbKey = "b81d09aa5f188c95ba4dc2e4336459b4"
 //const YouTubeKey = "AIzaSyD9L4wcH4JuIUXlNkavwNEQl-kH2_MsIOg"
 
 //save API base URLs to modify according to search
-const omdbImgURL = "http://img.omdbapi.com/?"
+
 const omdbSearchURL = "http://www.omdbapi.com/?"
-//const tmdbURL = "https://api.themoviedb.org/3/"
+const tmdbVideoURL = "https://api.themoviedb.org/3/movie/"
 //config for ID: https://api.themoviedb.org/3/configuration?api_key=b81d09aa5f188c95ba4dc2e4336459b4
 //const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
 //https://www.googleapis.com/youtube/v3/videos?&part=snippet&fields=items(snippet)&key=AIzaSyD9L4wcH4JuIUXlNkavwNEQl-kH2_MsIOg
@@ -21,7 +21,9 @@ const omdbSearchURL = "http://www.omdbapi.com/?"
         const imageQueryItems = Object.keys(params).map(key => `${key}=${encodeURIComponent(params[key])}`);
 console.log(`imageQueryItems is ${imageQueryItems}`)
         return imageQueryItems.join("&");
-
+    }
+    function formatTmdbQueryParams(params) {
+        
     }
 
     function getMovieInfo(query) {
