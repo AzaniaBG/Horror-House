@@ -39,7 +39,7 @@ console.log(`videoQueryItems is ${videoQueryItems}`)
         //const imageURL = omdbImgURL + queryString;
         const searchURL = omdbSearchURL + queryString;
 //console.log(`imageURL is ${imageURL}`);
-console.log(`searchURL is ${searchURL}`)
+//console.log(`searchURL is ${searchURL}`)
         fetch(searchURL)
            .then(response => response.json())
            .then(responseJson => {
@@ -91,13 +91,16 @@ console.log(`title match`)
         const params = {
             api_key: tmdbKey,
             language: "en-US",
+            append_to_response: "videos",
         }
         const queryString = formatTmdbQueryParams(params);
-        const videoURL = tmdbVideoURL + vidID + "/videos?" + queryString;
+        const videoURL = tmdbVideoURL + `${vidID}?` + queryString;
 //console.log(`tmdb videoURL is ${videoURL}`)
-        //let videoURL = "https://api.themoviedb.org/3/movie/tt4263482/videos?api_key=b81d09aa5f188c95ba4dc2e4336459b4"
-                    https://api.themoviedb.org/3/movie/{movie_id}/videos?api_key=<<api_key>>&language=en-US
-        fetch(videoURL).then(response => response.json()).then(responseJson => console.log(responseJson))
+//let videoURL = "https://api.themoviedb.org/3/movie/tt4263482/videos?api_key=b81d09aa5f188c95ba4dc2e4336459b4"
+        fetch(videoURL).then(response => response.json()).then(responseJson => {
+            console.log(responseJson)
+            console.log(responseJson["homepage"])
+        })
     }
 
     function checkForExactMatch(responseJson, query) {
