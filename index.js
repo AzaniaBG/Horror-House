@@ -67,14 +67,26 @@ console.log(responseJson)
 
 //display information related to search results for one movie
     function displayMovieInfo(responseJson, query) {
+        let movieTitle;
+        let movieYear;
+        let movieImg;
+        let movieId;
 console.log(responseJson)
         let movieData = responseJson.Search;
         let movieMatch = movieData.filter(item => query === item["Title"])
             
 console.log(`movieMatch is`, movieMatch)
+        movieMatch.map(detail => {
+            movieTitle = detail["Title"];
+            movieYear = detail["Year"]
+            movieImg = detail["Poster"];
+            movieId = detail["imdbID"]
+        });
+console.log(`movieId is ${movieId}`)
         //call other functions like displayVideo, displayImage     
         
     //display movie name and year
+       $("#one-movie").text(`${movieTitle}, ${movieYear}`);
     //display rating
     //display additional information (e.g., articles/reviews) 
     //let exactMatch = checkForExactMatch(responseJson, query)
