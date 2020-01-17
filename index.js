@@ -43,9 +43,9 @@ console.log(`videoQueryItems is ${videoQueryItems}`)
         fetch(searchURL)
            .then(response => response.json())
            .then(responseJson => {
+console.log(responseJson)
                displayMovieInfo(responseJson, query);
-               checkForExactMatch(responseJson, query);
-               getVideoPlayer(responseJson);
+               //checkForExactMatch(responseJson, query);
             });
     }
 
@@ -69,17 +69,11 @@ console.log(`videoQueryItems is ${videoQueryItems}`)
     function displayMovieInfo(responseJson, query) {
 console.log(responseJson)
         let movieData = responseJson.Search;
-        movieData.map(item => {
-            if(query === item["Title"]) {
-console.log(`title match`)
-            }
-            let movieInfo =
-            `<p>${item["Title"]} ${item["Year"]}</p>
-            <img src="${item["Poster"]}"/>`
-            $("h1").append(movieInfo);          
-//console.log(movieId)
-//console.log(moviePoster)
-        });
+        let movieMatch = movieData.filter(item => query === item["Title"])
+            
+console.log(`movieMatch is`, movieMatch)
+        //call other functions like displayVideo, displayImage     
+        
     //display movie name and year
     //display rating
     //display additional information (e.g., articles/reviews) 
@@ -88,6 +82,7 @@ console.log(`title match`)
     }
 
     function getVideoPlayer(vidID) {
+console.log(`vidId is ${vidID}`)
         const params = {
             api_key: tmdbKey,
             language: "en-US",
@@ -95,32 +90,46 @@ console.log(`title match`)
         }
         const queryString = formatTmdbQueryParams(params);
         const videoURL = tmdbVideoURL + `${vidID}?` + queryString;
-//console.log(`tmdb videoURL is ${videoURL}`)
+console.log(`tmdb videoURL is ${videoURL}`)
 //let videoURL = "https://api.themoviedb.org/3/movie/tt4263482/videos?api_key=b81d09aa5f188c95ba4dc2e4336459b4"
         fetch(videoURL).then(response => response.json()).then(responseJson => {
-            console.log(responseJson)
-            console.log(responseJson["homepage"])
+//console.log(responseJson)
+            let videoLink = responseJson["homepage"];
+console.log(`videoLink is ${videoLink}`)
+            displayVideoTrailer(videoLink);
+//console.log(responseJson["homepage"])
         })
     }
 
-    function checkForExactMatch(responseJson, query) {
-console.log(responseJson)
-        let movieInfo = responseJson.Search;
-        let match = movieInfo.map(info => {
-            let title = info["Title"];
-            let ID = info["imdbID"]
-            if(query === title) {
-// console.log(`match found: ${title}`)
-// console.log(`ID is ${ID}`)
-            getVideoPlayer(ID);
-            }  
+//     function checkForExactMatch(responseJson, query) {
+// console.log(responseJson)
+//         let movieInfo = responseJson.Search;
+//         let matchID;
+//         movieInfo.map(info => {
+//             let title = info["Title"];
+            
+//             if(query === title) {
+// // console.log(`match found: ${title}`)
+// // console.log(`ID is ${ID}`)
+//             matchID = info["imdbID"]
+//             return matchID;
+//             }  
      
-        });
-    }
+//         });
+// console.log(`GetVideoPlayer called with matchID is ${matchID}`)
+//         getVideoPlayer(matchID);
+//     }
 
-    function displayVideoTrailer(vidID) {
-console.log(`vidID is ${vidID}`)
-
+    function displayVideoTrailer(videoLink) {
+//console.log(`vidID is ${vidID}`)
+        $("video-container").append(`<video src="${videoLink}"> </video><a href="${videoLink}">Go To YouTube</a>`)       
+        $(".js-trailer").html(`<video>
+            src="${videoLink}"
+        </video>`) 
+        $("video").append(`<source src="${videoLink}" type="video/mp4">
+        <a href="${videoLink}">Go To YouTube</a>`)
+        $("#video-link").html(`${videoLInk}`)
+        
     }
 //watch the form and get user input
     function watchForm() {   
@@ -130,6 +139,7 @@ console.log(`vidID is ${vidID}`)
             let searchTerm = $("#js-one-movie-search").val();
     //capture the values of the user's input and pass those values to the GET function
         getMovieInfo(searchTerm);
+        
         });
     //when a user searches for similar movies and max Results, get the value, include those values in GET request
 
