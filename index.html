@@ -59,14 +59,6 @@
         <aside>Rating: </aside>
     </div>
     
-    <figure id="video-container">
-        <video width="500" height="500" controls id="one-movie-result">
-            <!-- <source src="" type="">
-            <a href="">Go To YouTube</a> -->
-        </video>
-
-    </figure>
-    <div id="video-link"></div>
 <!--/////////////////////////////END (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
 
 <!--/////////////////////////////SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
@@ -85,7 +77,7 @@
   integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
   crossorigin="anonymous">
 </script>
-<script>
+<!-- <script>
         let tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         let firstScriptTag = document.getElementsByTagName('script')[0];
@@ -93,7 +85,7 @@
 
         let player;
         function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
+        player = new YT.Player('iFrame-player', {
           height: '270',
           width: '480',
           videoId: `${movieId}`,
@@ -106,10 +98,11 @@
       function onPlayerReady(event) {
         event.target.playVideo();
       }
+      
       function stopVideo() {
         player.stopVideo();
       }
-</script>
+</script> -->
 <script
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
   integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
