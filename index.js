@@ -7,10 +7,10 @@ const tmdbKey = "b81d09aa5f188c95ba4dc2e4336459b4"
 
 //save API base URLs to modify according to search
 
-const omdbSearchURL = "http://www.omdbapi.com/?"
-const tmdbVideoURL = "https://api.themoviedb.org/3/movie/"
+const omdbSearchURL = "http://www.omdbapi.com/?"//use to get movie ID
+const tmdbVideoURL = "https://api.themoviedb.org/3/movie/"//use for ratings, etc.
 //config for ID: https://api.themoviedb.org/3/configuration?api_key=b81d09aa5f188c95ba4dc2e4336459b4
-//const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
+const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
 //https://www.googleapis.com/youtube/v3/videos?&part=snippet&fields=items(snippet)&key=AIzaSyD9L4wcH4JuIUXlNkavwNEQl-kH2_MsIOg
 //test variables
 
@@ -28,7 +28,7 @@ console.log(`videoQueryItems is ${videoQueryItems}`)
         return videoQueryItems.join("&");
     }
 
-    function getMovieInfo(query) {
+    function getOmdbMovieInfo(query) {
         const params = {
             apikey: omdbKey,
             type: "movie",
@@ -44,9 +44,21 @@ console.log(`videoQueryItems is ${videoQueryItems}`)
            .then(response => response.json())
            .then(responseJson => {
 console.log(responseJson)
-               displayMovieInfo(responseJson, query);
-               //checkForExactMatch(responseJson, query);
+                displayMovieInfo(responseJson, query);
+                getVideoPlayer(responseJson, query)
+               //checkForExactMatch(responseJson, query);       
             });
+    }
+    function getYtId(imdbID) {
+                const params = {
+                api_key: tmdbKey,
+                language: "en-US",
+                append_to_response: "videos",
+            }
+            const queryString = formatTmdbQueryParams(params);
+            const videoURL = tmdbVideoURL + `${imdbID}/videos?` + queryString;
+console.log(`tmdb videoURL is ${videoURL}`)
+            fetch(videoURL).then(response => response.json()).then(responseJson => console.log(`TMDb responseJson`, responseJson))
     }
 
     
@@ -67,6 +79,7 @@ console.log(responseJson)
 
 //display information related to search results for one movie
     function displayMovieInfo(responseJson, query) {
+console.log(`displayMovieInfo json data:`, responseJson)
         let movieInfo;
 console.log(responseJson)
         let movieData = responseJson.Search;
@@ -79,8 +92,9 @@ console.log(`movieMatch is`, movieMatch)
             let movieImg = detail["Poster"];
             let movieId = detail["imdbID"]
             movieInfo = generateElementString(movieTitle, movieYear, movieImg, movieId);
+            getYtId(movieId);
         });
-console.log(`movieInfo is ${movieInfo}`)
+//console.log(`movieInfo is ${movieInfo}`)
         //call other functions like displayVideo, displayImage     
         
     //display movie name and year
@@ -91,28 +105,38 @@ console.log(`movieInfo is ${movieInfo}`)
 //console.log(`exactMatch is ${exactMatch}`)
     }
     function generateElementString(title, year, image, id) {
-        return `<h1 class="one-movie-results">${title} (${year})</h1>
+        return `<h3 class="one-movie-results">${title} (${year})</h3>
         <img id="${id}" src="${image}" alt="${title} movie poster.">`
     }
 
-    function getVideoPlayer(vidID) {
-console.log(`vidId is ${vidID}`)
-        const params = {
-            api_key: tmdbKey,
-            language: "en-US",
-            append_to_response: "videos",
-        }
-        const queryString = formatTmdbQueryParams(params);
-        const videoURL = tmdbVideoURL + `${vidID}?` + queryString;
-console.log(`tmdb videoURL is ${videoURL}`)
-//let videoURL = "https://api.themoviedb.org/3/movie/tt4263482/videos?api_key=b81d09aa5f188c95ba4dc2e4336459b4"
-        fetch(videoURL).then(response => response.json()).then(responseJson => {
-//console.log(responseJson)
-            let videoLink = responseJson["homepage"];
-console.log(`videoLink is ${videoLink}`)
-            displayVideoTrailer(videoLink);
+    function getVideoPlayer(vidId, query) {
+//console.log(`query is ${query}`);
+        let IDs = vidId["Search"]
+console.log(IDs.filter(name => name["Title"] === query))
+        let idMatch = IDs.filter(name => name["Title"] === query);
+        let matchID = idMatch[0]["imdbID"]
+console.log(`matchID from getVideoPlayer is`, matchID)
+        displayVideoTrailer(matchID);
+//         const params = {
+//             api_key: tmdbKey,
+//             language: "en-US",
+//             append_to_response: "videos",
+//         }
+//         const queryString = formatTmdbQueryParams(params);
+//         const videoURL = YouTubeURL + `${matchID}?` + queryString;
+//         // const videoURL = tmdbVideoURL + `${matchID}?` + queryString;
+// console.log(`youtube videoURL is ${videoURL}`)/
+// //console.log(`tmdb videoURL is ${videoURL}`)
+// //let videoURL = "https://api.themoviedb.org/3/movie/tt4263482/videos?api_key=b81d09aa5f188c95ba4dc2e4336459b4"
+//         fetch(videoURL).then(response => response.json()).then(responseJason => displayVideoTrailer(responseJason))
+// //console.log(responseJson)
+// //             let videoLink = responseJson;
+
+//             let videoMatch = videoLink.filter(item => item["type"] === "trailer");
+// //console.log(`videoMatch is ${videoMatch[0]["key"]}`)
+// console.log(`responseJson`, responseJson)
+            
 //console.log(responseJson["homepage"])
-        })
     }
 
 //     function checkForExactMatch(responseJson, query) {
@@ -134,15 +158,15 @@ console.log(`videoLink is ${videoLink}`)
 //         getVideoPlayer(matchID);
 //     }
 
-    function displayVideoTrailer(videoLink) {
+    function displayVideoTrailer(ytID) {
+console.log(`ytID from displayVideoTrailer is:`, ytID)
 //console.log(`vidID is ${vidID}`)
-        $("video-container").append(`<video src="${videoLink}"> </video><a href="${videoLink}">Go To YouTube</a>`)       
-        $(".js-trailer").html(`<video>
-            src="${videoLink}"
-        </video>`) 
-        $("video").append(`<source src="${videoLink}" type="video/mp4">
-        <a href="${videoLink}">Go To YouTube</a>`)
-        $("#video-link").html(`${videoLInk}`)
+//         let trailer = `https://www.youtube.com/embed/${ytID}`
+//         let iFrameElement = `<iFrame id="iFrame-player" type="text/html" width="480" src="${trailer}"></iFrame>`
+        
+
+// console.log(`trailer is ${trailer}`)
+//         $("div").html(iFrameElement);
         
     }
 //watch the form and get user input
@@ -152,7 +176,8 @@ console.log(`videoLink is ${videoLink}`)
             event.preventDefault();
             let searchTerm = $("#js-one-movie-search").val();
     //capture the values of the user's input and pass those values to the GET function
-        getMovieInfo(searchTerm);
+        getOmdbMovieInfo(searchTerm);
+        
         
         });
     //when a user searches for similar movies and max Results, get the value, include those values in GET request
