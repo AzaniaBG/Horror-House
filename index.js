@@ -67,30 +67,32 @@ console.log(responseJson)
 
 //display information related to search results for one movie
     function displayMovieInfo(responseJson, query) {
-        let movieTitle;
-        let movieYear;
-        let movieImg;
-        let movieId;
+        let movieInfo;
 console.log(responseJson)
         let movieData = responseJson.Search;
         let movieMatch = movieData.filter(item => query === item["Title"])
             
 console.log(`movieMatch is`, movieMatch)
         movieMatch.map(detail => {
-            movieTitle = detail["Title"];
-            movieYear = detail["Year"]
-            movieImg = detail["Poster"];
-            movieId = detail["imdbID"]
+            let movieTitle = detail["Title"];
+            let movieYear = detail["Year"]
+            let movieImg = detail["Poster"];
+            let movieId = detail["imdbID"]
+            movieInfo = generateElementString(movieTitle, movieYear, movieImg, movieId);
         });
-console.log(`movieId is ${movieId}`)
+console.log(`movieInfo is ${movieInfo}`)
         //call other functions like displayVideo, displayImage     
         
     //display movie name and year
-       $("#one-movie").text(`${movieTitle}, ${movieYear}`);
+       $("#one-movie").html(movieInfo);
     //display rating
     //display additional information (e.g., articles/reviews) 
     //let exactMatch = checkForExactMatch(responseJson, query)
 //console.log(`exactMatch is ${exactMatch}`)
+    }
+    function generateElementString(title, year, image, id) {
+        return `<h1 class="one-movie-results">${title} (${year})</h1>
+        <img id="${id}" src="${image}" alt="${title} movie poster.">`
     }
 
     function getVideoPlayer(vidID) {
