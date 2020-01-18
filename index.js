@@ -58,7 +58,21 @@ console.log(responseJson)
             const queryString = formatTmdbQueryParams(params);
             const videoURL = tmdbVideoURL + `${imdbID}/videos?` + queryString;
 console.log(`tmdb videoURL is ${videoURL}`)
-            fetch(videoURL).then(response => response.json()).then(responseJson => console.log(`TMDb responseJson`, responseJson))
+            fetch(videoURL).then(response => response.json()).then(responseJson => {
+
+                let videos = responseJson.results;
+//console.log(`getYtId responseJson:`, videos)
+                let ytMatch = videos.filter(video => video["site"] === "YouTube");
+console.log(`ytMatch returns`, ytMatch)
+                //let ytID = ytMatch[0]["id"]
+                let ytID = ytMatch[0]["key"]
+                // let poster = ytMatch[0][]
+                //let poster = "https://m.media-amazon.com/images/M/MV5BMTUyNzkwMzAxOF5BMl5BanBnXkFtZTgwMzc1OTk1NjE@._V1_SX300.jpg"
+//console.log(`ytID is`, ytID)
+                displayVideoTrailer(ytID);
+//console.log(`TMDb responseJson`, responseJson)
+
+            })
     }
 
     
@@ -116,7 +130,7 @@ console.log(IDs.filter(name => name["Title"] === query))
         let idMatch = IDs.filter(name => name["Title"] === query);
         let matchID = idMatch[0]["imdbID"]
 console.log(`matchID from getVideoPlayer is`, matchID)
-        displayVideoTrailer(matchID);
+        //displayVideoTrailer(matchID);
 //         const params = {
 //             api_key: tmdbKey,
 //             language: "en-US",
@@ -160,13 +174,14 @@ console.log(`matchID from getVideoPlayer is`, matchID)
 
     function displayVideoTrailer(ytID) {
 console.log(`ytID from displayVideoTrailer is:`, ytID)
-//console.log(`vidID is ${vidID}`)
-//         let trailer = `https://www.youtube.com/embed/${ytID}`
-//         let iFrameElement = `<iFrame id="iFrame-player" type="text/html" width="480" src="${trailer}"></iFrame>`
         
+//console.log(`vidID is ${vidID}`)
+        let trailer = `https://www.youtube.com/embed/${ytID}?enablejsapi=1&origin=https://m.media-amazon.com/images/M/MV5BMTUyNzkwMzAxOF5BMl5BanBnXkFtZTgwMzc1OTk1NjE@._V1_SX300.jpg`
+        let iFrameElement = `<iFrame id="iFrame-player" type="text/html" width="480" height="400"src="${trailer}"></iFrame>`
+        //https://www.youtube.com/embed/5794f65592514142a4002ec0
 
-// console.log(`trailer is ${trailer}`)
-//         $("div").html(iFrameElement);
+console.log(`trailer is ${trailer}`)
+        $("#iFrame-player").html(iFrameElement);
         
     }
 //watch the form and get user input
