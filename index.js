@@ -141,18 +141,27 @@ console.log(`trailer is ${trailer}`)
         $("form").on("submit", event => {
             event.preventDefault();
             let searchTerm = $("#js-one-movie-search").val();
-    //capture the values of the user's input and pass those values to the GET function
-        getOmdbMovieInfo(searchTerm);   
-        });
-    //when a user searches for similar movies and max Results, get the value, include those values in GET request
-        $("form").on("submit", event => {
-            event.preventDefault();
             let multiSearchTerm = $("#js-similar-movies").val();
-//console.log(`multiSearchTerm is ${multiSearchTerm}`)
-    //capture the values of the user's input and pass those values to the GET function
-            //getOmdbMovieInfo(multiSearchTerm);   
-        getOmdbMovieInfo(multiSearchTerm);
+            if(searchTerm != " " && multiSearchTerm == " ") {
+                getOmdbMovieInfo(searchTerm);
+            } else if(multiSearchTerm != " " && searchTerm == " ") {
+                getOmdbMovieInfo(multiSearchTerm);
+            } else {
+                $("#search-error-message").text(`Please check your search and try again.`);
+            }
         });
+    //capture the values of the user's input and pass those values to the GET function
+//         getOmdbMovieInfo(searchTerm);   
+//         });
+//     //when a user searches for similar movies and max Results, get the value, include those values in GET request
+//         $("form").on("submit", event => {
+//             event.preventDefault();
+//             let multiSearchTerm = $("#js-similar-movies").val();
+// //console.log(`multiSearchTerm is ${multiSearchTerm}`)
+//     //capture the values of the user's input and pass those values to the GET function
+//             //getOmdbMovieInfo(multiSearchTerm);   
+//             getOmdbMovieInfo(multiSearchTerm);
+//         });
     //capture user's input values and pass them to the GET function: getSimilarMovies(query, maxResults)
 
     }
