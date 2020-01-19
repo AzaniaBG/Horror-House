@@ -27,13 +27,14 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         return videoQueryItems.join("&");
     }
 
-    function getOmdbMovieInfo(query) {
+    function getOmdbMovieInfo(query, num) {
+console.log(`num is ${num}`)
 //console.log(`query is: ${query}`)
         const params = {
             apikey: omdbKey,
             type: "movie",
             s: query,
-            page: 1,
+            page: num,
         }
         const queryString = formatOmdbQueryParams(params);
         const searchURL = omdbSearchURL + queryString;
@@ -184,10 +185,12 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             event.preventDefault();          
             let searchTerm = $("#js-one-movie-search").val();
             let multiSearchTerm = $("#js-similar-movies").val();
+            let maxResults = $("#js-max-results").val();
+console.log(`MaxResults are ${maxResults}`);
 //console.log(`multiSearchTerm is ${multiSearchTerm}`);
 //console.log(`searchTerm is ${searchTerm}`)
-            getOmdbMovieInfo(searchTerm);
-            getOmdbMovieInfo(multiSearchTerm);
+            getOmdbMovieInfo(searchTerm, 1);
+            getOmdbMovieInfo(multiSearchTerm, maxResults);
         });
 
     }
