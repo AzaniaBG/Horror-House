@@ -23,7 +23,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
     }
     function formatTmdbQueryParams(params) {
         const videoQueryItems = Object.keys(params).map(key => `${key}=${encodeURIComponent(params[key])}`);
-console.log(`videoQueryItems is ${videoQueryItems}`)
+//console.log(`videoQueryItems is ${videoQueryItems}`)
         return videoQueryItems.join("&");
     }
 
@@ -55,13 +55,13 @@ console.log(`videoQueryItems is ${videoQueryItems}`)
             }
             const queryString = formatTmdbQueryParams(params);
             const videoURL = tmdbSearchURL + `${imdbID}/videos?` + queryString;
-console.log(`tmdb videoURL is ${videoURL}`)
+//console.log(`tmdb videoURL is ${videoURL}`)
             fetch(videoURL).then(response => response.json()).then(responseJson => {
 
                 let videos = responseJson.results;
 //console.log(`getYtId responseJson:`, videos)
                 let ytMatch = videos.filter(video => video["site"] === "YouTube");
-console.log(`ytMatch returns`, ytMatch)
+//console.log(`ytMatch returns`, ytMatch)
                 //let ytID = ytMatch[0]["id"]
                 let ytID = ytMatch[0]["key"]
                 // let poster = ytMatch[0][]
@@ -78,7 +78,7 @@ console.log(`ytMatch returns`, ytMatch)
         
     function getSimilarMovies(movieID) {
 //console.log(`getSimilarMovies ran`)
-console.log(`getSimilar response data:`, movieID)
+//console.log(`getSimilar response data:`, movieID)
         const parameters = {
             api_key: tmdbKey,
             language: "en-US",
@@ -86,10 +86,10 @@ console.log(`getSimilar response data:`, movieID)
         }
         const queryString = formatTmdbQueryParams(parameters);
         const similarURL = tmdbSearchURL + `${movieID}/similar?` + queryString;
-console.log(`similarURL is ${similarURL}`)
+//console.log(`similarURL is ${similarURL}`)
         fetch(similarURL).then(response => response.json()).then(responseJson => {
             let results = responseJson.results;
-console.log(`results is`, results)
+//console.log(`results is`, results)
             //for each result, display them in a list item
             displaySimilarMovies(results);
         })
@@ -97,7 +97,7 @@ console.log(`results is`, results)
 
 //display information related to search results for one movie
     function displayMovieInfo(responseJson, query) {
-console.log(`displayMovieInfo json data:`, responseJson)
+//console.log(`displayMovieInfo json data:`, responseJson)
         let movieInfo;
         let movieData = responseJson.Search;
         let movieMatch = movieData.filter(item => query === item["Title"])           
@@ -107,7 +107,7 @@ console.log(`displayMovieInfo json data:`, responseJson)
             let movieYear = detail["Year"]
             let movieImg = detail["Poster"];
             let movieId = detail["imdbID"];
-console.log(`movieId is ${movieId}`)
+//console.log(`movieId is ${movieId}`)
             getYtId(movieId);
             getSimilarMovies(movieId);
             movieInfo = generateElementString(movieTitle, movieYear, movieImg, movieId);
@@ -134,7 +134,7 @@ console.log(`movieId is ${movieId}`)
 //console.log(`results is ${results}`)
          let movieList = results.map(movie => {
              let title = movie["title"];
-console.log(`title is ${title}`)
+//console.log(`title is ${title}`)
             $("ul").append(`<li>${title}</li>`)
             //generateSimilarsElementString(title);
          });
@@ -167,8 +167,14 @@ console.log(`title is ${title}`)
             event.preventDefault();
             $("#one-movie-search").show();
             $("#similar-movies-search").hide();
+            
         });
+        $("#js-multi-search-button").on("submit", event => {
+            $("#js-similar-movie-results").show();
+            
+        })
     }
+    
 //watch the form and get user input
     function watchForm() {   
         handleSearchButtons();

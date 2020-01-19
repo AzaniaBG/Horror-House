@@ -12,13 +12,12 @@
 <body>
 <!--/////////////////////////////MAIN SCREEN///////////////////////////////-->
     
-    <header>
+    <header id="main-screen-header">
         <h1>Greetings. Welcome to the Horror House.</h1>
         <h2>Enter if you dare.</h2>
     </header>
     <section id="error-messages" class="hidden">
         <h2 id="search-error-message" class="hidden"></h2>
-
     </section>
     <form id="search-options">
         <button id="js-search-one">Search for a Movie</button>
@@ -43,14 +42,14 @@
                     <option value="100">1</option>
                 </select>
             </label>
-                <button>ENTER</button>
+                <button id="js-multi-search-button">ENTER</button>
         </fieldset>
     </form>
 <!--/////////////////////////////END MAIN SCREEN///////////////////////////////-->
 
 <!--///////////////////////////// (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
     
-    <div id="js-search-results-screen">
+    <section id="js-search-results-screen">
         <h1 id="one-movie">Movie Title: </h1>
         <div id="iFrame-player" src="#" class="js-trailer"></div>
             
@@ -63,7 +62,7 @@
         </header>
         <h1>Movie Title & Year: </h1>
         <aside>Rating: </aside>
-    </div>
+    </section>
     
 <!--/////////////////////////////END (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
 
