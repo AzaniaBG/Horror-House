@@ -42,7 +42,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         fetch(searchURL)
            .then(response => response.json())
            .then(responseJson => {
-//console.log(`omdbSearchURL returns`, responseJson)
+console.log(`omdbSearchURL returns`, responseJson)
                 parseMovieInfo(responseJson);
                 displayMovieInfo(responseJson, query);
             });
@@ -59,7 +59,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             const videoURL = tmdbSearchURL + `${imdbID}/videos?` + queryString;
 //console.log(`tmdb videoURL is ${videoURL}`)
             fetch(videoURL).then(response => response.json()).then(responseJson => {
-
+console.log(`getYtId data is`, responseJson)
                 let videos = responseJson.results;
 //console.log(`getYtId responseJson:`, videos)
                 let ytMatch = videos.filter(video => video["site"] === "YouTube");
@@ -100,12 +100,23 @@ console.log(`tmdbURL returns`, responseJson);
     function parseMovieInfo(responseJson) {
 console.log(`parseInfo function returns:`, responseJson);
     }
+    function getTmdbInfo(movieId) {
+        const params = {
+
+        }
+        
+        const tmdbQueryString = formatTmdbQueryParams(params);
+        let tmdbSnippetsURL = tmdbSearchURL + `${imdbID}?` + tmdbQueryString;
+console.log(`tmdbSnippetsURL is ${tmdbSnippetsURL}`)
+        fetch(tmdbSnippetsURL).then(response => response.json()).then(responseJson => console.log(`responseJson from getTmdbInfo is`, responseJson));
+    }
 
 //display information related to search results for one movie
     function displayMovieInfo(responseJson, query) {
 //console.log(`displayMovieInfo json data:`, responseJson)
         let movieInfo;
         let movieData = responseJson.Search;
+//console.log(`movieData is`, movieData)
         let movieMatch = movieData.filter(item => query === item["Title"])           
 //console.log(`movieMatch is`, movieMatch)
         movieMatch.map(detail => {
@@ -113,10 +124,14 @@ console.log(`parseInfo function returns:`, responseJson);
             let movieYear = detail["Year"]
             let movieImg = detail["Poster"];
             let movieId = detail["imdbID"];
+//console.log(`movieDescrip is: `, movieDescrip)
 //console.log(`movieId is ${movieId}`)
             getYtId(movieId);
+//console.log(`getYtId`)
             getSimilarMovies(movieId);
             movieInfo = generateElementString(movieTitle, movieYear, movieImg, movieId);
+            
+//console.log(`movieDescrip is`, movieDescrip)
         });
 //console.log(`movieInfo is ${movieInfo}`)    
         
