@@ -28,6 +28,7 @@ console.log(`videoQueryItems is ${videoQueryItems}`)
     }
 
     function getOmdbMovieInfo(query) {
+console.log(`query is: ${query}`)
         const params = {
             apikey: omdbKey,
             type: "movie",
@@ -36,8 +37,7 @@ console.log(`videoQueryItems is ${videoQueryItems}`)
         }
         const queryString = formatOmdbQueryParams(params);
         const searchURL = omdbSearchURL + queryString;
-//console.log(`imageURL is ${imageURL}`);
-//console.log(`searchURL is ${searchURL}`)
+console.log(`searchURL is ${searchURL}`)
         fetch(searchURL)
            .then(response => response.json())
            .then(responseJson => {
@@ -140,29 +140,14 @@ console.log(`trailer is ${trailer}`)
     //when a user searches for one movie, get the value, include that value in GET request
         $("form").on("submit", event => {
             event.preventDefault();
+            
             let searchTerm = $("#js-one-movie-search").val();
             let multiSearchTerm = $("#js-similar-movies").val();
-            if(searchTerm != " " && multiSearchTerm == " ") {
-                getOmdbMovieInfo(searchTerm);
-            } else if(multiSearchTerm != " " && searchTerm == " ") {
-                getOmdbMovieInfo(multiSearchTerm);
-            } else {
-console.log(`error`)
-            }
+console.log(`multiSearchTerm is ${multiSearchTerm}`);
+console.log(`searchTerm is ${searchTerm}`)
+            getOmdbMovieInfo(searchTerm);
+            getOmdbMovieInfo(multiSearchTerm);
         });
-    //capture the values of the user's input and pass those values to the GET function
-//         getOmdbMovieInfo(searchTerm);   
-//         });
-//     //when a user searches for similar movies and max Results, get the value, include those values in GET request
-//         $("form").on("submit", event => {
-//             event.preventDefault();
-//             let multiSearchTerm = $("#js-similar-movies").val();
-// //console.log(`multiSearchTerm is ${multiSearchTerm}`)
-//     //capture the values of the user's input and pass those values to the GET function
-//             //getOmdbMovieInfo(multiSearchTerm);   
-//             getOmdbMovieInfo(multiSearchTerm);
-//         });
-    //capture user's input values and pass them to the GET function: getSimilarMovies(query, maxResults)
 
     }
     
