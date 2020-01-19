@@ -119,8 +119,6 @@ console.log(`movieMatch is`, movieMatch)
         return `<h3 class="one-movie-results">${title} (${year})</h3>
         <img id="${id}" src="${image}" alt="${title} movie poster.">`
     }
-
-
     function displayVideoTrailer(ytID) {
 console.log(`ytID from displayVideoTrailer is:`, ytID)
         
@@ -140,12 +138,16 @@ console.log(`trailer is ${trailer}`)
             event.preventDefault();
             let searchTerm = $("#js-one-movie-search").val();
     //capture the values of the user's input and pass those values to the GET function
-        getOmdbMovieInfo(searchTerm);
-        
-        
+        getOmdbMovieInfo(searchTerm);   
         });
     //when a user searches for similar movies and max Results, get the value, include those values in GET request
-
+        $("form").on("submit", event => {
+            event.preventDefault();
+            let multiSearchTerm = $("#js-similar-movie-results").val();
+console.log(`multiSearchTerm is ${multiSearchTerm}`)
+    //capture the values of the user's input and pass those values to the GET function
+            getOmdbMovieInfo(multiSearchTerm);   
+        });
     //capture user's input values and pass them to the GET function: getSimilarMovies(query, maxResults)
 
     }
