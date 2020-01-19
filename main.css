@@ -1,3 +1,8 @@
-#error-messages {
+
+#error-messages, #search-error-message {
     color: red;
+    display: none;
+}
+.hidden {
+    display: none;
 }
