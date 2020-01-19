@@ -28,7 +28,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
     }
 
     function getOmdbMovieInfo(query, num) {
-console.log(`num is ${num}`)
+//console.log(`num is ${num}`)
 //console.log(`query is: ${query}`)
         const params = {
             apikey: omdbKey,
@@ -43,6 +43,7 @@ console.log(`num is ${num}`)
            .then(response => response.json())
            .then(responseJson => {
 //console.log(`omdbSearchURL returns`, responseJson)
+                parseMovieInfo(responseJson);
                 displayMovieInfo(responseJson, query);
             });
     }
@@ -89,11 +90,15 @@ console.log(`num is ${num}`)
         const similarURL = tmdbSearchURL + `${movieID}/similar?` + queryString;
 //console.log(`similarURL is ${similarURL}`)
         fetch(similarURL).then(response => response.json()).then(responseJson => {
+console.log(`tmdbURL returns`, responseJson);
             let results = responseJson.results;
 //console.log(`results is`, results)
             //for each result, display them in a list item
             displaySimilarMovies(results);
         })
+    }
+    function parseMovieInfo(responseJson) {
+console.log(`parseInfo function returns:`, responseJson);
     }
 
 //display information related to search results for one movie
