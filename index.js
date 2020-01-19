@@ -148,6 +148,18 @@ console.log(`title is ${title}`)
     function generateSimilarsElementString(movie) {
         return `<li class="similar-movies">${movie}</li>`
     }
+    function handleSearchButtons() {
+        $("#js-search-one").on("click", event => {
+            event.preventDefault();
+            $("#one-movie-search").show();
+            $("#js-search-one").hide();
+            $("#js-multiSearch").hide();
+        });
+        $("#js-multiSearch").on("click", event => {
+            event.preventDefault();
+            $("#similar-movies-search").show()
+        });
+    }
 //watch the form and get user input
     function watchForm() {   
         
