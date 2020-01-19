@@ -1,8 +1,18 @@
 
+/* ************************ MAIN SCREEN ****************************** */
+header {
+    text-align: center;
+}
+/* show two search options*/
+
+/* ************************ SEARCH ONE MOVIE SCREEN *******************************/
+
+/* ************************ SEARCH SIMILAR MOVIES SCREEN    *******************************/
+
+
+
+
 #error-messages, #search-error-message {
     color: red;
-    display: none;
-}
-.hidden {
     display: none;
 }
