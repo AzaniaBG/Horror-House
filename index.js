@@ -153,7 +153,7 @@ console.log(`title is ${title}`)
             event.preventDefault();
             $("#one-movie-search").show();
             $("#js-search-one").hide();
-            $("#js-multiSearch").hide();
+            $("#js-multiSearch").toggleClass("hidden");
         });
         $("#js-multiSearch").on("click", event => {
             event.preventDefault();
@@ -162,9 +162,17 @@ console.log(`title is ${title}`)
             $("#js-search-one").hide();
         });
     }
+    function handleSubmitButtons() {
+        $("#js-one-movie-button").on("submit", event => {
+            event.preventDefault();
+            $("#one-movie-search").show();
+            $("#similar-movies-search").hide();
+        });
+    }
 //watch the form and get user input
     function watchForm() {   
         handleSearchButtons();
+        handleSubmitButtons();
     //when a user searches for one movie, get the value, include that value in GET request
         $("form").on("submit", event => {
             event.preventDefault();          
