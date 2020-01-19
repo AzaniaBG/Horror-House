@@ -42,12 +42,22 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         fetch(searchURL)
            .then(response => response.json())
            .then(responseJson => {
-console.log(`omdbSearchURL returns`, responseJson)
+//console.log(`omdbSearchURL returns`, responseJson)
                 parseMovieInfo(responseJson);
                 displayMovieInfo(responseJson, query);
             });
     }
+    function  getDetailsWithId(id) {
+        const params = {
+            apikey: omdbKey,
+            i: id,
+            plot: `short`,
+        }
+        let queryIdString = formatOmdbQueryParams(params);
+        let omdbIdSearchURL = `http://www.omdbapi.com/?` + queryIdString;
+console.log(`omdbIdSearchURL is ${omdbIdSearchURL}`)
 
+    }
     function getYtId(imdbID) {
 //console.log(`getYtId ran`)
                 const params = {
@@ -59,7 +69,7 @@ console.log(`omdbSearchURL returns`, responseJson)
             const videoURL = tmdbSearchURL + `${imdbID}/videos?` + queryString;
 //console.log(`tmdb videoURL is ${videoURL}`)
             fetch(videoURL).then(response => response.json()).then(responseJson => {
-console.log(`getYtId data is`, responseJson)
+//console.log(`getYtId data is`, responseJson)
                 let videos = responseJson.results;
 //console.log(`getYtId responseJson:`, videos)
                 let ytMatch = videos.filter(video => video["site"] === "YouTube");
@@ -92,6 +102,8 @@ console.log(`getYtId data is`, responseJson)
         fetch(similarURL).then(response => response.json()).then(responseJson => {
 console.log(`tmdbURL returns`, responseJson);
             let results = responseJson.results;
+            let overview = results.map(item => item["overview"]);
+//console.log(`overview is ${overview}`)
 //console.log(`results is`, results)
             //for each result, display them in a list item
             displaySimilarMovies(results);
@@ -100,16 +112,18 @@ console.log(`tmdbURL returns`, responseJson);
     function parseMovieInfo(responseJson) {
 console.log(`parseInfo function returns:`, responseJson);
     }
-    function getTmdbInfo(movieId) {
-        const params = {
-
-        }
+    
+//     function getTmdbInfo(movieId) {
+//         const params = {
+//             api_key: tmdbKey,
+//             language: "en-US",
+//         }
         
-        const tmdbQueryString = formatTmdbQueryParams(params);
-        let tmdbSnippetsURL = tmdbSearchURL + `${imdbID}?` + tmdbQueryString;
-console.log(`tmdbSnippetsURL is ${tmdbSnippetsURL}`)
-        fetch(tmdbSnippetsURL).then(response => response.json()).then(responseJson => console.log(`responseJson from getTmdbInfo is`, responseJson));
-    }
+//         const tmdbQueryString = formatTmdbQueryParams(params);
+//         let tmdbSnippetsURL = tmdbSearchURL + `${movieId}?` + tmdbQueryString;
+// console.log(`tmdbSnippetsURL is ${tmdbSnippetsURL}`)
+//         fetch(tmdbSnippetsURL).then(response => response.json()).then(responseJson => console.log(`responseJson from getTmdbInfo is`, responseJson));
+//     }
 
 //display information related to search results for one movie
     function displayMovieInfo(responseJson, query) {
@@ -128,7 +142,10 @@ console.log(`tmdbSnippetsURL is ${tmdbSnippetsURL}`)
 //console.log(`movieId is ${movieId}`)
             getYtId(movieId);
 //console.log(`getYtId`)
+            getDetailsWithId(movieId);
             getSimilarMovies(movieId);
+            //getTmdbInfo(movieId);
+//console.log(`getTmdbInfo added`)
             movieInfo = generateElementString(movieTitle, movieYear, movieImg, movieId);
             
 //console.log(`movieDescrip is`, movieDescrip)
@@ -206,7 +223,7 @@ console.log(`tmdbSnippetsURL is ${tmdbSnippetsURL}`)
             let searchTerm = $("#js-one-movie-search").val();
             let multiSearchTerm = $("#js-similar-movies").val();
             let maxResults = $("#js-max-results").val();
-console.log(`MaxResults are ${maxResults}`);
+//console.log(`MaxResults are ${maxResults}`);
 //console.log(`multiSearchTerm is ${multiSearchTerm}`);
 //console.log(`searchTerm is ${searchTerm}`)
             getOmdbMovieInfo(searchTerm, 1);
