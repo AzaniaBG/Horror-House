@@ -77,7 +77,7 @@ console.log(`ytMatch returns`, ytMatch)
 //     function getSimilarMovies(query, maxResults) {
         
     function getSimilarMovies(movieID) {
-console.log(`getSimilar response data:`, responseJson)
+//console.log(`getSimilar response data:`, responseJson)
         const parameters = {
             api_key: tmdbKey,
             language: "en-US",
@@ -85,9 +85,12 @@ console.log(`getSimilar response data:`, responseJson)
         }
         const queryString = formatTmdbQueryParams(parameters);
         const similarURL = tmdbSearchURL + `${movieID}/similar?` + queryString;
-console.log(`similarURL is ${similarURL}`)
-//https://api.themoviedb.org/3/search/movie/api_key=b81d09aa5f188c95ba4dc2e4336459b4&language=en-US&query=&append_to_response=movie_id
-//https://api.themoviedb.org/3/search/movie?api_key=b81d09aa5f188c95ba4dc2e4336459b4&language=en-US&query=The%20Witch&page=1&include_adult=false
+//console.log(`similarURL is ${similarURL}`)
+        fetch(similarURL).then(response => response.json()).then(responseJson => {
+console.log(`responseJson is:`)
+console.log(responseJson)
+        })
+        //similarURL()
     }
 
 //display information related to search results for one movie
@@ -117,6 +120,11 @@ console.log(`movieMatch is`, movieMatch)
     //display additional information (e.g., articles/reviews) 
     //let exactMatch = checkForExactMatch(responseJson, query)
 //console.log(`exactMatch is ${exactMatch}`)
+    }
+    function displaySimilarMovies(list) {
+        let movieList = list.map(movie => `<li class="js-similar-movies">`)
+console.log(`movieList is ${movieList}`)
+
     }
     function generateElementString(title, year, image, id) {
         return `<h3 class="one-movie-results">${title} (${year})</h3>
