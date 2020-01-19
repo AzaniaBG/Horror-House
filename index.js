@@ -157,12 +157,14 @@ console.log(`title is ${title}`)
         });
         $("#js-multiSearch").on("click", event => {
             event.preventDefault();
-            $("#similar-movies-search").show()
+            $("#similar-movies-search").show();
+            $("#js-multiSearch").hide();
+            $("#js-search-one").hide();
         });
     }
 //watch the form and get user input
     function watchForm() {   
-        
+        handleSearchButtons();
     //when a user searches for one movie, get the value, include that value in GET request
         $("form").on("submit", event => {
             event.preventDefault();          
