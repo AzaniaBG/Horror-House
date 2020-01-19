@@ -6,7 +6,6 @@ const tmdbKey = "b81d09aa5f188c95ba4dc2e4336459b4"
 //const YouTubeKey = "AIzaSyD9L4wcH4JuIUXlNkavwNEQl-kH2_MsIOg"
 
 //save API base URLs to modify according to search
-
 const omdbSearchURL = "http://www.omdbapi.com/?"//use to get movie ID
 const tmdbVideoURL = "https://api.themoviedb.org/3/movie/"//use for ratings, etc.
 //config for ID: https://api.themoviedb.org/3/configuration?api_key=b81d09aa5f188c95ba4dc2e4336459b4
@@ -36,14 +35,13 @@ console.log(`videoQueryItems is ${videoQueryItems}`)
             page: 1,
         }
         const queryString = formatOmdbQueryParams(params);
-        //const imageURL = omdbImgURL + queryString;
         const searchURL = omdbSearchURL + queryString;
 //console.log(`imageURL is ${imageURL}`);
 //console.log(`searchURL is ${searchURL}`)
         fetch(searchURL)
            .then(response => response.json())
            .then(responseJson => {
-console.log(responseJson)
+console.log(`omdbSearchURL returns`, responseJson)
                 displayMovieInfo(responseJson, query);
                 getVideoPlayer(responseJson, query)
                //checkForExactMatch(responseJson, query);       
@@ -152,25 +150,6 @@ console.log(`matchID from getVideoPlayer is`, matchID)
             
 //console.log(responseJson["homepage"])
     }
-
-//     function checkForExactMatch(responseJson, query) {
-// console.log(responseJson)
-//         let movieInfo = responseJson.Search;
-//         let matchID;
-//         movieInfo.map(info => {
-//             let title = info["Title"];
-            
-//             if(query === title) {
-// // console.log(`match found: ${title}`)
-// // console.log(`ID is ${ID}`)
-//             matchID = info["imdbID"]
-//             return matchID;
-//             }  
-     
-//         });
-// console.log(`GetVideoPlayer called with matchID is ${matchID}`)
-//         getVideoPlayer(matchID);
-//     }
 
     function displayVideoTrailer(ytID) {
 console.log(`ytID from displayVideoTrailer is:`, ytID)
