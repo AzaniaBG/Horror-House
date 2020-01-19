@@ -88,9 +88,10 @@ console.log(`getSimilar response data:`, movieID)
         const similarURL = tmdbSearchURL + `${movieID}/similar?` + queryString;
 console.log(`similarURL is ${similarURL}`)
         fetch(similarURL).then(response => response.json()).then(responseJson => {
-console.log(`responseJson is:`)
-console.log(responseJson)
+            let results = responseJson.results;
+console.log(`results is`, results)
             //for each result, display them in a list item
+            displaySimilarMovies(results);
         })
     }
 
@@ -121,23 +122,31 @@ console.log(`movieId is ${movieId}`)
 //console.log(`exactMatch is ${exactMatch}`)
     }
     function displayVideoTrailer(ytID) {
-//console.log(`ytID from displayVideoTrailer is:`, ytID)
-        
+//console.log(`ytID from displayVideoTrailer is:`, ytID)       
 //console.log(`vidID is ${vidID}`)
         let trailer = `https://www.youtube.com/embed/${ytID}?enablejsapi=1&origin=https://m.media-amazon.com/images/M/MV5BMTUyNzkwMzAxOF5BMl5BanBnXkFtZTgwMzc1OTk1NjE@._V1_SX300.jpg`
         let iFrameElement = `<iFrame id="iFrame-player" type="text/html" width="480" height="400"src="${trailer}"></iFrame>`
-        //https://www.youtube.com/embed/5794f65592514142a4002ec0
-
 //console.log(`displayVideoTrailer trailer is ${trailer}`)
-        $("#iFrame-player").html(iFrameElement);
-        
+        $("#iFrame-player").html(iFrameElement);    
     }
-    function displaySimilarMovies(list) {
-        
+
+    function displaySimilarMovies(results) {
+//console.log(`results is ${results}`)
+         let movieList = results.map(movie => {
+             let title = movie["title"];
+console.log(`title is ${title}`)
+            $("ul").append(`<li>${title}</li>`)
+            //generateSimilarsElementString(title);
+         });
+// console.log(`movieList is ${movieList}`, typeof movieList)
+//         $("ul").appendTo(movieList);
     }
     function generateElementString(title, year, image, id) {
         return `<h3 class="one-movie-results">${title} (${year})</h3>
         <img id="${id}" src="${image}" alt="${title} movie poster.">`
+    }
+    function generateSimilarsElementString(movie) {
+        return `<li class="similar-movies">${movie}</li>`
     }
 //watch the form and get user input
     function watchForm() {   
