@@ -147,7 +147,7 @@ console.log(`trailer is ${trailer}`)
             } else if(multiSearchTerm != " " && searchTerm == " ") {
                 getOmdbMovieInfo(multiSearchTerm);
             } else {
-                $("#search-error-message").text(`Please check your search and try again.`);
+console.log(`error`)
             }
         });
     //capture the values of the user's input and pass those values to the GET function
