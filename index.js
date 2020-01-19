@@ -43,8 +43,7 @@ console.log(`videoQueryItems is ${videoQueryItems}`)
            .then(responseJson => {
 console.log(`omdbSearchURL returns`, responseJson)
                 displayMovieInfo(responseJson, query);
-                getVideoPlayer(responseJson, query)
-               //checkForExactMatch(responseJson, query);       
+                getVideoPlayer(responseJson, query)     
             });
     }
     function getYtId(imdbID) {
@@ -121,35 +120,6 @@ console.log(`movieMatch is`, movieMatch)
         <img id="${id}" src="${image}" alt="${title} movie poster.">`
     }
 
-    function getVideoPlayer(vidId, query) {
-//console.log(`query is ${query}`);
-        let IDs = vidId["Search"]
-console.log(IDs.filter(name => name["Title"] === query))
-        let idMatch = IDs.filter(name => name["Title"] === query);
-        let matchID = idMatch[0]["imdbID"]
-console.log(`matchID from getVideoPlayer is`, matchID)
-        //displayVideoTrailer(matchID);
-//         const params = {
-//             api_key: tmdbKey,
-//             language: "en-US",
-//             append_to_response: "videos",
-//         }
-//         const queryString = formatTmdbQueryParams(params);
-//         const videoURL = YouTubeURL + `${matchID}?` + queryString;
-//         // const videoURL = tmdbVideoURL + `${matchID}?` + queryString;
-// console.log(`youtube videoURL is ${videoURL}`)/
-// //console.log(`tmdb videoURL is ${videoURL}`)
-// //let videoURL = "https://api.themoviedb.org/3/movie/tt4263482/videos?api_key=b81d09aa5f188c95ba4dc2e4336459b4"
-//         fetch(videoURL).then(response => response.json()).then(responseJason => displayVideoTrailer(responseJason))
-// //console.log(responseJson)
-// //             let videoLink = responseJson;
-
-//             let videoMatch = videoLink.filter(item => item["type"] === "trailer");
-// //console.log(`videoMatch is ${videoMatch[0]["key"]}`)
-// console.log(`responseJson`, responseJson)
-            
-//console.log(responseJson["homepage"])
-    }
 
     function displayVideoTrailer(ytID) {
 console.log(`ytID from displayVideoTrailer is:`, ytID)
