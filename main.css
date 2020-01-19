@@ -1,8 +1,15 @@
 
-/* ************************ MAIN SCREEN ****************************** */
 header {
     text-align: center;
 }
+#search-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* ************************ MAIN SCREEN ****************************** */
+
 /* show two search options*/
 
 /* ************************ SEARCH ONE MOVIE SCREEN *******************************/
