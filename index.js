@@ -28,7 +28,7 @@ console.log(`videoQueryItems is ${videoQueryItems}`)
     }
 
     function getOmdbMovieInfo(query) {
-console.log(`query is: ${query}`)
+//console.log(`query is: ${query}`)
         const params = {
             apikey: omdbKey,
             type: "movie",
@@ -37,17 +37,17 @@ console.log(`query is: ${query}`)
         }
         const queryString = formatOmdbQueryParams(params);
         const searchURL = omdbSearchURL + queryString;
-console.log(`searchURL is ${searchURL}`)
+//console.log(`searchURL is ${searchURL}`)
         fetch(searchURL)
            .then(response => response.json())
            .then(responseJson => {
-console.log(`omdbSearchURL returns`, responseJson)
+//console.log(`omdbSearchURL returns`, responseJson)
                 displayMovieInfo(responseJson, query);
-                //getVideoPlayer(responseJson, query)     
             });
     }
 
     function getYtId(imdbID) {
+//console.log(`getYtId ran`)
                 const params = {
                 api_key: tmdbKey,
                 language: "en-US",
@@ -77,7 +77,8 @@ console.log(`ytMatch returns`, ytMatch)
 //     function getSimilarMovies(query, maxResults) {
         
     function getSimilarMovies(movieID) {
-console.log(`getSimilar response data:`, responseJson)
+//console.log(`getSimilarMovies ran`)
+console.log(`getSimilar response data:`, movieID)
         const parameters = {
             api_key: tmdbKey,
             language: "en-US",
@@ -86,30 +87,31 @@ console.log(`getSimilar response data:`, responseJson)
         const queryString = formatTmdbQueryParams(parameters);
         const similarURL = tmdbSearchURL + `${movieID}/similar?` + queryString;
 console.log(`similarURL is ${similarURL}`)
-//https://api.themoviedb.org/3/search/movie/api_key=b81d09aa5f188c95ba4dc2e4336459b4&language=en-US&query=&append_to_response=movie_id
-//https://api.themoviedb.org/3/search/movie?api_key=b81d09aa5f188c95ba4dc2e4336459b4&language=en-US&query=The%20Witch&page=1&include_adult=false
+        fetch(similarURL).then(response => response.json()).then(responseJson => {
+console.log(`responseJson is:`)
+console.log(responseJson)
+            //for each result, display them in a list item
+        })
     }
 
 //display information related to search results for one movie
     function displayMovieInfo(responseJson, query) {
 console.log(`displayMovieInfo json data:`, responseJson)
         let movieInfo;
-console.log(responseJson)
         let movieData = responseJson.Search;
-        let movieMatch = movieData.filter(item => query === item["Title"])
-            
-console.log(`movieMatch is`, movieMatch)
+        let movieMatch = movieData.filter(item => query === item["Title"])           
+//console.log(`movieMatch is`, movieMatch)
         movieMatch.map(detail => {
             let movieTitle = detail["Title"];
             let movieYear = detail["Year"]
             let movieImg = detail["Poster"];
-            let movieId = detail["imdbID"]
-            movieInfo = generateElementString(movieTitle, movieYear, movieImg, movieId);
+            let movieId = detail["imdbID"];
+console.log(`movieId is ${movieId}`)
             getYtId(movieId);
             getSimilarMovies(movieId);
+            movieInfo = generateElementString(movieTitle, movieYear, movieImg, movieId);
         });
-//console.log(`movieInfo is ${movieInfo}`)
-        //call other functions like displayVideo, displayImage     
+//console.log(`movieInfo is ${movieInfo}`)    
         
     //display movie name and year
        $("#one-movie").html(movieInfo);
@@ -118,33 +120,35 @@ console.log(`movieMatch is`, movieMatch)
     //let exactMatch = checkForExactMatch(responseJson, query)
 //console.log(`exactMatch is ${exactMatch}`)
     }
-    function generateElementString(title, year, image, id) {
-        return `<h3 class="one-movie-results">${title} (${year})</h3>
-        <img id="${id}" src="${image}" alt="${title} movie poster.">`
-    }
     function displayVideoTrailer(ytID) {
-console.log(`ytID from displayVideoTrailer is:`, ytID)
+//console.log(`ytID from displayVideoTrailer is:`, ytID)
         
 //console.log(`vidID is ${vidID}`)
         let trailer = `https://www.youtube.com/embed/${ytID}?enablejsapi=1&origin=https://m.media-amazon.com/images/M/MV5BMTUyNzkwMzAxOF5BMl5BanBnXkFtZTgwMzc1OTk1NjE@._V1_SX300.jpg`
         let iFrameElement = `<iFrame id="iFrame-player" type="text/html" width="480" height="400"src="${trailer}"></iFrame>`
         //https://www.youtube.com/embed/5794f65592514142a4002ec0
 
-console.log(`trailer is ${trailer}`)
+//console.log(`displayVideoTrailer trailer is ${trailer}`)
         $("#iFrame-player").html(iFrameElement);
         
+    }
+    function displaySimilarMovies(list) {
+        
+    }
+    function generateElementString(title, year, image, id) {
+        return `<h3 class="one-movie-results">${title} (${year})</h3>
+        <img id="${id}" src="${image}" alt="${title} movie poster.">`
     }
 //watch the form and get user input
     function watchForm() {   
         
     //when a user searches for one movie, get the value, include that value in GET request
         $("form").on("submit", event => {
-            event.preventDefault();
-            
+            event.preventDefault();          
             let searchTerm = $("#js-one-movie-search").val();
             let multiSearchTerm = $("#js-similar-movies").val();
-console.log(`multiSearchTerm is ${multiSearchTerm}`);
-console.log(`searchTerm is ${searchTerm}`)
+//console.log(`multiSearchTerm is ${multiSearchTerm}`);
+//console.log(`searchTerm is ${searchTerm}`)
             getOmdbMovieInfo(searchTerm);
             getOmdbMovieInfo(multiSearchTerm);
         });
