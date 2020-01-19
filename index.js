@@ -1,126 +1,159 @@
 'use strict'
 
 //store API keys in global variables to access for API calls
-const YouTubeKey = "AIzaSyAs4XB1Jqg3e714vdB8t4QJ4zGIurzYS8E"
+const omdbKey = "cb95d063"
+const tmdbKey = "b81d09aa5f188c95ba4dc2e4336459b4"
+//const YouTubeKey = "AIzaSyD9L4wcH4JuIUXlNkavwNEQl-kH2_MsIOg"
 
 //save API base URLs to modify according to search
+const omdbSearchURL = "http://www.omdbapi.com/?"//use to get movie ID
+const tmdbSearchURL = "https://api.themoviedb.org/3/movie/"//use for ratings, etc.
+//config for ID: https://api.themoviedb.org/3/configuration?api_key=b81d09aa5f188c95ba4dc2e4336459b4
 const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
-
+//https://www.googleapis.com/youtube/v3/videos?&part=snippet&fields=items(snippet)&key=AIzaSyD9L4wcH4JuIUXlNkavwNEQl-kH2_MsIOg
 //test variables
 
 
 //format query parameters
-    function formatQueryParams(params) {
-    //create an array of keys from the PARAMS `object` argument and, for each key, create a formatted key-pair value string
-        const searchQueryItems = Object.keys(params).map(key => `${key}=${params[key]}`);
-    //return a string of each key-pair value separated by &s
-        return searchQueryItems.join("&");
+    function formatOmdbQueryParams(params) {
+    //return an array of keys in the `params` object and, from that array, create a string from each property: key=value, and join the key/value properties with &
+        const imageQueryItems = Object.keys(params).map(key => `${key}=${encodeURIComponent(params[key])}`);
 
-    //format YouTube parameters for SEARCH endpoint
-
-
-    //format YouTube parameters for VIDEOS endpoint
-
+        return imageQueryItems.join("&");
     }
-//GET movie info
-    function getMovieSnippets(query, maxResults) {
-        let fieldsParams = "items(snippet, id/videoId)"
+    function formatTmdbQueryParams(params) {
+        const videoQueryItems = Object.keys(params).map(key => `${key}=${encodeURIComponent(params[key])}`);
+console.log(`videoQueryItems is ${videoQueryItems}`)
+        return videoQueryItems.join("&");
+    }
 
+    function getOmdbMovieInfo(query) {
         const params = {
-            q: query,
-            maxNum: maxResults,
-            part: "snippet",
-            type: "video", 
-            fields: fieldsParams,
-            key: YouTubeKey
+            apikey: omdbKey,
+            type: "movie",
+            s: query,
+            page: 1,
         }
-        const queryString = formatQueryParams(params);
-        const snippetURL = YouTubeURL + `search?` + queryString;
-//console.log(`snippetURL is ${snippetURL}`)
-        fetch(snippetURL).then(response =>response.json()).then(responseJson => {
-        //responseJson returns ITEMS array, containing ID and snippet objects 
-//console.log(responseJson)
-        //for each item in the ITEMS Array, return an array of string IDs, titles, and images
-        responseJson.items.map(item => {
-            let vidIds = item.id["videoId"];
-            getVideos(vidIds);
-            let titles = item.snippet["title"];
-            
-            let images = item.snippet.thumbnails;
-            displayMovieInfo(titles, images);
-            
-//console.log(`titles is ${titles}`)
+        const queryString = formatOmdbQueryParams(params);
+        const searchURL = omdbSearchURL + queryString;
+//console.log(`imageURL is ${imageURL}`);
+//console.log(`searchURL is ${searchURL}`)
+        fetch(searchURL)
+           .then(response => response.json())
+           .then(responseJson => {
+console.log(`omdbSearchURL returns`, responseJson)
+                displayMovieInfo(responseJson, query);
+                //getVideoPlayer(responseJson, query)     
             });
-
-        })
-        
     }
 
-//call the YouTube API to retrieve video players/trailers
-    function getVideos(vidId) {
-        let fieldParams = "items(etag, player)"
-        const params = {
-            id: vidId,
-            part: "player",
-            fields: fieldParams,
-            key: YouTubeKey
+    function getYtId(imdbID) {
+                const params = {
+                api_key: tmdbKey,
+                language: "en-US",
+                append_to_response: "videos",
+            }
+            const queryString = formatTmdbQueryParams(params);
+            const videoURL = tmdbSearchURL + `${imdbID}/videos?` + queryString;
+console.log(`tmdb videoURL is ${videoURL}`)
+            fetch(videoURL).then(response => response.json()).then(responseJson => {
+
+                let videos = responseJson.results;
+//console.log(`getYtId responseJson:`, videos)
+                let ytMatch = videos.filter(video => video["site"] === "YouTube");
+console.log(`ytMatch returns`, ytMatch)
+                //let ytID = ytMatch[0]["id"]
+                let ytID = ytMatch[0]["key"]
+                // let poster = ytMatch[0][]
+                //let poster = "https://m.media-amazon.com/images/M/MV5BMTUyNzkwMzAxOF5BMl5BanBnXkFtZTgwMzc1OTk1NjE@._V1_SX300.jpg"
+//console.log(`ytID is`, ytID)
+                displayVideoTrailer(ytID);
+//console.log(`TMDb responseJson`, responseJson)
+            })
+    }
+
+    
+//find similar movies and list results according to maxResults specified
+//     function getSimilarMovies(query, maxResults) {
+        
+    function getSimilarMovies(movieID) {
+console.log(`getSimilar response data:`, responseJson)
+        const parameters = {
+            api_key: tmdbKey,
+            language: "en-US",
+            page: 1,
         }
-        const queryString = formatQueryParams(params);
-        const vidURL = YouTubeURL + `videos?` + queryString;
-console.log(`vidURL is ${vidURL}`)
-        fetch(vidURL).then(response => response.json()).then(responseJson => console.log(responseJson));
-
+        const queryString = formatTmdbQueryParams(parameters);
+        const similarURL = tmdbSearchURL + `${movieID}/similar?` + queryString;
+console.log(`similarURL is ${similarURL}`)
+//https://api.themoviedb.org/3/search/movie/api_key=b81d09aa5f188c95ba4dc2e4336459b4&language=en-US&query=&append_to_response=movie_id
+//https://api.themoviedb.org/3/search/movie?api_key=b81d09aa5f188c95ba4dc2e4336459b4&language=en-US&query=The%20Witch&page=1&include_adult=false
     }
 
-    function displayTrailers(vidId) {
-//console.log(`displayTrailers ran`)
+//display information related to search results for one movie
+    function displayMovieInfo(responseJson, query) {
+console.log(`displayMovieInfo json data:`, responseJson)
+        let movieInfo;
+console.log(responseJson)
+        let movieData = responseJson.Search;
+        let movieMatch = movieData.filter(item => query === item["Title"])
+            
+console.log(`movieMatch is`, movieMatch)
+        movieMatch.map(detail => {
+            let movieTitle = detail["Title"];
+            let movieYear = detail["Year"]
+            let movieImg = detail["Poster"];
+            let movieId = detail["imdbID"]
+            movieInfo = generateElementString(movieTitle, movieYear, movieImg, movieId);
+            getYtId(movieId);
+            getSimilarMovies(movieId);
+        });
+//console.log(`movieInfo is ${movieInfo}`)
+        //call other functions like displayVideo, displayImage     
         
-        return `<video id="${vidId}" src="${vidId}" class="js-trailer">Trailer: ${vidId}</video>`;
-
-    }
-    
-//display information related to search results 
-    function displayMovieInfo(titles, images) {
     //display movie name and year
-        console.log(`<h3>${titles}</h3>`)
-    //display poster image for movie result(s)
-        let defaultImg = images.default["url"];
-        let mediumImg = images.medium["url"];
-        let highImg = images.high["url"];
-//console.log(`highImg is ${highImg}`)
-//console.log(`mediumImg is ${mediumImg}`)
-        $(".js-movie-img").html(`<img src="${defaultImg}">`);
+       $("#one-movie").html(movieInfo);
     //display rating
-
-    //display additional information
-    
+    //display additional information (e.g., articles/reviews) 
+    //let exactMatch = checkForExactMatch(responseJson, query)
+//console.log(`exactMatch is ${exactMatch}`)
     }
-//embed video for user to play
-    function embedVideo() {
-
+    function generateElementString(title, year, image, id) {
+        return `<h3 class="one-movie-results">${title} (${year})</h3>
+        <img id="${id}" src="${image}" alt="${title} movie poster.">`
     }
-//list similar movies based on search results
-    function displaySimilarMovies() {
-    //display movie name and year
-
-    //display movie information
-
-    }
-//watch for the form submission
-    function watchForm() {
+    function displayVideoTrailer(ytID) {
+console.log(`ytID from displayVideoTrailer is:`, ytID)
         
+//console.log(`vidID is ${vidID}`)
+        let trailer = `https://www.youtube.com/embed/${ytID}?enablejsapi=1&origin=https://m.media-amazon.com/images/M/MV5BMTUyNzkwMzAxOF5BMl5BanBnXkFtZTgwMzc1OTk1NjE@._V1_SX300.jpg`
+        let iFrameElement = `<iFrame id="iFrame-player" type="text/html" width="480" height="400"src="${trailer}"></iFrame>`
+        //https://www.youtube.com/embed/5794f65592514142a4002ec0
+
+console.log(`trailer is ${trailer}`)
+        $("#iFrame-player").html(iFrameElement);
         
-    //when a user submits a search; get the value
+    }
+//watch the form and get user input
+    function watchForm() {   
+        
+    //when a user searches for one movie, get the value, include that value in GET request
         $("form").on("submit", event => {
             event.preventDefault();
             let searchTerm = $("#js-one-movie-search").val();
-            getMovieSnippets(searchTerm, 5);
-console.log(`searchTerm is ${searchTerm}`)
-            }
-
-        )
-
     //capture the values of the user's input and pass those values to the GET function
+        getOmdbMovieInfo(searchTerm);   
+        });
+    //when a user searches for similar movies and max Results, get the value, include those values in GET request
+        $("form").on("submit", event => {
+            event.preventDefault();
+            let multiSearchTerm = $("#js-similar-movies").val();
+//console.log(`multiSearchTerm is ${multiSearchTerm}`)
+    //capture the values of the user's input and pass those values to the GET function
+            //getOmdbMovieInfo(multiSearchTerm);   
+        getOmdbMovieInfo(multiSearchTerm);
+        });
+    //capture user's input values and pass them to the GET function: getSimilarMovies(query, maxResults)
 
     }
     

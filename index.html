@@ -13,19 +13,19 @@
     
     <header>
         <h1>Greetings. Welcome to the Horror House.</h1>
-        <h2>Enter if you dare</h2>
+        <h2>Enter if you dare.</h2>
     </header>
     <form>
         <fieldset>
             <label>Search for a Movie.
                 <input id="js-one-movie-search">
             </label>
-            <button>ENTER</button>
+            <button id="js-one-movie-button">ENTER</button>
         </fieldset>
 
         <fieldset>
             <label>Find Similar Movies.
-                <input>
+                <input id="js-similar-movies">
                 <select name="results">
                     <option value="1">1</option>
                     <option value="3">3</option>
@@ -43,10 +43,10 @@
 
 <!--///////////////////////////// (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
     
-    <div>
-        <h1>Movie Title: </h1>
-        <video id="vidId" src="" class="js-trailer"></video>
-            <img class="js-movie-img" src="" alt="poster for movie">
+    <div id="js-search-results-screen">
+        <h1 id="one-movie">Movie Title: </h1>
+        <div id="iFrame-player" src="#" class="js-trailer"></div>
+            
             <picture></picture>
             <aside>Rating: </aside>
         <h2>Info/Description</h2>
@@ -58,6 +58,7 @@
         <h1>Movie Title & Year: </h1>
         <aside>Rating: </aside>
     </div>
+    
 <!--/////////////////////////////END (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
 
 <!--/////////////////////////////SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
@@ -74,7 +75,34 @@
 <script
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
   integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
-  crossorigin="anonymous"></script>
+  crossorigin="anonymous">
+</script>
+<!-- <script>
+        let tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        let firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        let player;
+        function onYouTubeIframeAPIReady() {
+        player = new YT.Player('iFrame-player', {
+          height: '270',
+          width: '480',
+          videoId: `${movieId}`,
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+      
+      function stopVideo() {
+        player.stopVideo();
+      }
+</script> -->
 <script
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
   integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
