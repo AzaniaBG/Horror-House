@@ -43,8 +43,8 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
            .then(response => response.json())
            .then(responseJson => {
 //console.log(`omdbSearchURL returns`, responseJson)
-                parseMovieInfo(responseJson);
-                displayMovieInfo(responseJson, query);
+                parseMovieInfo(responseJson, query);
+                //displayMovieInfo(responseJson, query);
             });
     }
     function  getDetailsWithId(id) {
@@ -55,7 +55,14 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         }
         let queryIdString = formatOmdbQueryParams(params);
         let omdbIdSearchURL = `http://www.omdbapi.com/?` + queryIdString;
-console.log(`omdbIdSearchURL is ${omdbIdSearchURL}`)
+//console.log(`omdbIdSearchURL is ${omdbIdSearchURL}`)
+        fetch(omdbIdSearchURL).then(response => response.json()).then(responseJson => {
+            let ratings = responseJson.ratings;
+//console.log(`ratings is an Array: ${ratings}`)
+            let descrip = responseJson["Plot"];
+console.log(responseJson);
+//console.log(`getDetailsWithId descrip is`, descrip)
+        })
 
     }
     function getYtId(imdbID) {
@@ -86,8 +93,6 @@ console.log(`omdbIdSearchURL is ${omdbIdSearchURL}`)
 
     
 //find similar movies and list results according to maxResults specified
-//     function getSimilarMovies(query, maxResults) {
-        
     function getSimilarMovies(movieID) {
 //console.log(`getSimilarMovies ran`)
 //console.log(`getSimilar response data:`, movieID)
@@ -109,31 +114,15 @@ console.log(`tmdbURL returns`, responseJson);
             displaySimilarMovies(results);
         })
     }
-    function parseMovieInfo(responseJson) {
-console.log(`parseInfo function returns:`, responseJson);
-    }
-    
-//     function getTmdbInfo(movieId) {
-//         const params = {
-//             api_key: tmdbKey,
-//             language: "en-US",
-//         }
-        
-//         const tmdbQueryString = formatTmdbQueryParams(params);
-//         let tmdbSnippetsURL = tmdbSearchURL + `${movieId}?` + tmdbQueryString;
-// console.log(`tmdbSnippetsURL is ${tmdbSnippetsURL}`)
-//         fetch(tmdbSnippetsURL).then(response => response.json()).then(responseJson => console.log(`responseJson from getTmdbInfo is`, responseJson));
-//     }
-
-//display information related to search results for one movie
-    function displayMovieInfo(responseJson, query) {
-//console.log(`displayMovieInfo json data:`, responseJson)
+    function parseMovieInfo(responseJson, query) {
+//console.log(`parseInfo function returns:`, responseJson);
+        //console.log(`parseDetails json data:`, responseJson)
         let movieInfo;
         let movieData = responseJson.Search;
 //console.log(`movieData is`, movieData)
-        let movieMatch = movieData.filter(item => query === item["Title"])           
+        //let movieMatch = movieData.filter(item => query === item["Title"])           
 //console.log(`movieMatch is`, movieMatch)
-        movieMatch.map(detail => {
+        movieData.map(detail => {
             let movieTitle = detail["Title"];
             let movieYear = detail["Year"]
             let movieImg = detail["Poster"];
@@ -146,14 +135,42 @@ console.log(`parseInfo function returns:`, responseJson);
             getSimilarMovies(movieId);
             //getTmdbInfo(movieId);
 //console.log(`getTmdbInfo added`)
-            movieInfo = generateElementString(movieTitle, movieYear, movieImg, movieId);
+            
             
 //console.log(`movieDescrip is`, movieDescrip)
         });
 //console.log(`movieInfo is ${movieInfo}`)    
+    }
+
+//display information related to search results for one movie
+    function displayMovieInfo(responseJson, query) {
+// //console.log(`parseDetails json data:`, responseJson)
+//         let movieInfo;
+//         let movieData = responseJson.Search;
+// //console.log(`movieData is`, movieData)
+//         let movieMatch = movieData.filter(item => query === item["Title"])           
+// //console.log(`movieMatch is`, movieMatch)
+//         movieMatch.map(detail => {
+//             let movieTitle = detail["Title"];
+//             let movieYear = detail["Year"]
+//             let movieImg = detail["Poster"];
+//             let movieId = detail["imdbID"];
+// //console.log(`movieDescrip is: `, movieDescrip)
+// //console.log(`movieId is ${movieId}`)
+//             getYtId(movieId);
+// //console.log(`getYtId`)
+//             getDetailsWithId(movieId);
+//             getSimilarMovies(movieId);
+//             //getTmdbInfo(movieId);
+// //console.log(`getTmdbInfo added`)
+//             movieInfo = generateElementString(movieTitle, movieYear, movieImg, movieId);
+            
+// //console.log(`movieDescrip is`, movieDescrip)
+//         });
+// //console.log(`movieInfo is ${movieInfo}`)    
         
     //display movie name and year
-       $("#one-movie").html(movieInfo);
+       //$("#one-movie").html(movieInfo);
     //display rating
     //display additional information (e.g., articles/reviews) 
     //let exactMatch = checkForExactMatch(responseJson, query)
