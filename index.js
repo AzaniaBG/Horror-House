@@ -57,10 +57,15 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         let omdbIdSearchURL = `http://www.omdbapi.com/?` + queryIdString;
 //console.log(`omdbIdSearchURL is ${omdbIdSearchURL}`)
         fetch(omdbIdSearchURL).then(response => response.json()).then(responseJson => {
-            let ratings = responseJson.ratings;
-//console.log(`ratings is an Array: ${ratings}`)
-            let descrip = responseJson["Plot"];
 console.log(responseJson);
+            let ratings = responseJson.Ratings
+            let ratingFilter = ratings.filter(item => item["Source"] === "Internet Movie Database")
+
+            //let rating = `${ratingFilter[0]["Source"]}: ${ratingFilter[0]["Value"]}`
+//console.log(`rating is`, rating)
+            let descrip = responseJson["Plot"];
+            
+            displayMovieInfo(ratingFilter, descrip);
 //console.log(`getDetailsWithId descrip is`, descrip)
         })
 
@@ -91,7 +96,9 @@ console.log(responseJson);
             })
     }
 
-    
+    function displayDetails(ratings, plot) {
+console.log(`displayDetails show ratings and plot are`, ratings, plot)
+    }
 //find similar movies and list results according to maxResults specified
     function getSimilarMovies(movieID) {
 //console.log(`getSimilarMovies ran`)
@@ -120,11 +127,13 @@ console.log(`tmdbURL returns`, responseJson);
         let movieInfo;
         let movieData = responseJson.Search;
 //console.log(`movieData is`, movieData)
-        //let movieMatch = movieData.filter(item => query === item["Title"])           
+        let movieMatch = movieData.filter(item => query === item["Title"])           
 //console.log(`movieMatch is`, movieMatch)
-        movieData.map(detail => {
+            movieMatch.map(detail => {
             let movieTitle = detail["Title"];
             let movieYear = detail["Year"]
+            //let movieRating = detail.Ratings["imdbRating"];
+//console.log(`movieRating is ${movieRating}`, typeof movieRating)
             let movieImg = detail["Poster"];
             let movieId = detail["imdbID"];
 //console.log(`movieDescrip is: `, movieDescrip)
@@ -133,48 +142,19 @@ console.log(`tmdbURL returns`, responseJson);
 //console.log(`getYtId`)
             getDetailsWithId(movieId);
             getSimilarMovies(movieId);
-            //getTmdbInfo(movieId);
-//console.log(`getTmdbInfo added`)
             
-            
-//console.log(`movieDescrip is`, movieDescrip)
         });
+        
 //console.log(`movieInfo is ${movieInfo}`)    
     }
 
 //display information related to search results for one movie
-    function displayMovieInfo(responseJson, query) {
-// //console.log(`parseDetails json data:`, responseJson)
-//         let movieInfo;
-//         let movieData = responseJson.Search;
-// //console.log(`movieData is`, movieData)
-//         let movieMatch = movieData.filter(item => query === item["Title"])           
-// //console.log(`movieMatch is`, movieMatch)
-//         movieMatch.map(detail => {
-//             let movieTitle = detail["Title"];
-//             let movieYear = detail["Year"]
-//             let movieImg = detail["Poster"];
-//             let movieId = detail["imdbID"];
-// //console.log(`movieDescrip is: `, movieDescrip)
-// //console.log(`movieId is ${movieId}`)
-//             getYtId(movieId);
-// //console.log(`getYtId`)
-//             getDetailsWithId(movieId);
-//             getSimilarMovies(movieId);
-//             //getTmdbInfo(movieId);
-// //console.log(`getTmdbInfo added`)
-//             movieInfo = generateElementString(movieTitle, movieYear, movieImg, movieId);
-            
-// //console.log(`movieDescrip is`, movieDescrip)
-//         });
-// //console.log(`movieInfo is ${movieInfo}`)    
-        
-    //display movie name and year
-       //$("#one-movie").html(movieInfo);
-    //display rating
-    //display additional information (e.g., articles/reviews) 
-    //let exactMatch = checkForExactMatch(responseJson, query)
-//console.log(`exactMatch is ${exactMatch}`)
+    function displayMovieInfo(ratingMatch, plot) {
+//console.log(`displayMovieInfo is`, plot)
+        let rating = `<span> IMDB Rating: ${ratingMatch[0]["Value"]} </span>
+        <aside>${plot}</aside>`;
+//console.log(`rating is`, rating);
+        $("#one-movie-description").html(rating);
     }
     function displayVideoTrailer(ytID) {
 //console.log(`ytID from displayVideoTrailer is:`, ytID)       
