@@ -32,24 +32,28 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
 //console.log(`query is: ${query}`)
         const params = {
             apikey: omdbKey,
-            type: "movie",
-            s: query,
+            t: query,
+            type: "movie",            
             page: num,
         }
         const queryString = formatOmdbQueryParams(params);
+//"http://www.omdbapi.com/?"
         const searchURL = omdbSearchURL + queryString;
-//console.log(`searchURL is ${searchURL}`)
+console.log(`OMDBsearchURL is ${searchURL}`)
+//http://www.omdbapi.com/?apikey=[yourkey]&
+//http://www.omdbapi.com/?apikey=cb95d063&t=Annabelle
+//http://www.omdbapi.com/?apikey=cb95d063&t=Annabelle&type=movie
+//http://www.omdbapi.com/?apikey=cb95d063&type=movie&s=Annabelle&page=10
         fetch(searchURL)
            .then(response => response.json())
            .then(responseJson => {
-console.log(`omdbSearchURL returns`, responseJson)
+console.log(`omdbSearchURL returns`, responseJson)//---------RETURNS basic movie info
                 parseMovieInfo(responseJson, query);
             let info = responseJson.Search;
             let imdbID = info[0]["imdbID"];
-                
-                //displayMovieInfo(responseJson, query);
             });
     }
+
     function  getDetailsWithId(id) {
         const params = {
             apikey: omdbKey,
@@ -60,14 +64,13 @@ console.log(`omdbSearchURL returns`, responseJson)
         let omdbIdSearchURL = `http://www.omdbapi.com/?` + queryIdString;
 //console.log(`omdbIdSearchURL is ${omdbIdSearchURL}`)
         fetch(omdbIdSearchURL).then(response => response.json()).then(responseJson => {
-console.log(responseJson);
+//console.log(responseJson);
             let ratings = responseJson.Ratings
             let ratingFilter = ratings.filter(item => item["Source"] === "Internet Movie Database")
 
             //let rating = `${ratingFilter[0]["Source"]}: ${ratingFilter[0]["Value"]}`
 //console.log(`rating is`, rating)
-            let descrip = responseJson["Plot"];
-            
+            let descrip = responseJson["Plot"];        
             displayMovieInfo(ratingFilter, descrip);
 //console.log(`getDetailsWithId descrip is`, descrip)
         })
@@ -135,10 +138,10 @@ console.log(`movies is ${movies}`)
     }
     function parseMovieInfo(responseJson, query) {
 console.log(`parseInfo function returns:`, responseJson);
-        //console.log(`parseDetails json data:`, responseJson)
+//console.log(`parseDetails json data:`, responseJson)
         let movieInfo;
         let movieData = responseJson.Search;
-//console.log(`movieData is`, movieData)
+console.log(`movieData is`, movieData)
         let movieMatch = movieData.filter(item => query === item["Title"])           
 //console.log(`movieMatch is`, movieMatch)
             movieMatch.map(detail => {
@@ -239,7 +242,7 @@ console.log(`parseInfo function returns:`, responseJson);
 //console.log(`searchTerm is ${searchTerm}`)
             getOmdbMovieInfo(searchTerm, 10);
             //getOmdbMovieInfo(multiSearchTerm, maxResults);
-            getSimilarMovies(multiSearchTerm);
+            getSimilarMovies(multiSearchTerm, maxResults);
         });
 
     }
