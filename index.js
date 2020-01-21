@@ -42,8 +42,11 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         fetch(searchURL)
            .then(response => response.json())
            .then(responseJson => {
-//console.log(`omdbSearchURL returns`, responseJson)
+console.log(`omdbSearchURL returns`, responseJson)
                 parseMovieInfo(responseJson, query);
+            let info = responseJson.Search;
+            let imdbID = info[0]["imdbID"];
+                
                 //displayMovieInfo(responseJson, query);
             });
     }
@@ -100,29 +103,38 @@ console.log(responseJson);
 console.log(`displayDetails show ratings and plot are`, ratings, plot)
     }
 //find similar movies and list results according to maxResults specified
-    function getSimilarMovies(movieID) {
+    function getSimilarMovies(searchInput) {
 //console.log(`getSimilarMovies ran`)
 //console.log(`getSimilar response data:`, movieID)
         const parameters = {
             api_key: tmdbKey,
             language: "en-US",
+            query: searchInput,
             page: 1,
         }
         const queryString = formatTmdbQueryParams(parameters);
-        const similarURL = tmdbSearchURL + `${movieID}/similar?` + queryString;
-//console.log(`similarURL is ${similarURL}`)
+        const tmdbSearchURL = "https://api.themoviedb.org/3/search/movie/?"
+        const similarURL = tmdbSearchURL + queryString;
+//https://api.themoviedb.org/3/movie/tt0010184/similar?api_key=b81d09aa5f188c95ba4dc2e4336459b4&language=en-US&page=1
+//https://api.themoviedb.org/3/movie/310131/similar?api_key=b81d09aa5f188c95ba4dc2e4336459b4&language=en-US&page=1
+console.log(`similarURL is ${similarURL}`)
         fetch(similarURL).then(response => response.json()).then(responseJson => {
 console.log(`tmdbURL returns`, responseJson);
             let results = responseJson.results;
             let overview = results.map(item => item["overview"]);
 //console.log(`overview is ${overview}`)
 //console.log(`results is`, results)
+            results.map(item => {
+                let movieID = item["id"]
+                let movies = item["title"];
+console.log(`movies is ${movies}`)
+                displaySimilarMovies(movies);
+            });
             //for each result, display them in a list item
-            displaySimilarMovies(results);
         })
     }
     function parseMovieInfo(responseJson, query) {
-//console.log(`parseInfo function returns:`, responseJson);
+console.log(`parseInfo function returns:`, responseJson);
         //console.log(`parseDetails json data:`, responseJson)
         let movieInfo;
         let movieData = responseJson.Search;
@@ -141,7 +153,7 @@ console.log(`tmdbURL returns`, responseJson);
             getYtId(movieId);
 //console.log(`getYtId`)
             getDetailsWithId(movieId);
-            getSimilarMovies(movieId);
+            // getSimilarMovies(movieId);
             
         });
         
@@ -165,14 +177,15 @@ console.log(`tmdbURL returns`, responseJson);
         $("#iFrame-player").html(iFrameElement);    
     }
 
-    function displaySimilarMovies(results) {
-//console.log(`results is ${results}`)
-         let movieList = results.map(movie => {
-             let title = movie["title"];
-//console.log(`title is ${title}`)
-            $("ul").append(`<li>${title}</li>`)
-            //generateSimilarsElementString(title);
-         });
+    function displaySimilarMovies(movieId) {
+//console.log(`movieId is ${movieId}`)
+        $("ul").append(`<li>${movieId}</li>`)
+//          let movieList = results.map(movie => {
+//              let title = movie["title"];
+// //console.log(`title is ${title}`)
+//             $("ul").append(`<li>${title}</li>`)
+//             //generateSimilarsElementString(title);
+//          });
 // console.log(`movieList is ${movieList}`, typeof movieList)
 //         $("ul").appendTo(movieList);
     }
@@ -205,6 +218,7 @@ console.log(`tmdbURL returns`, responseJson);
             
         });
         $("#js-multi-search-button").on("submit", event => {
+            event.preventDefault();
             $("#js-similar-movie-results").show();
             
         })
@@ -223,8 +237,9 @@ console.log(`tmdbURL returns`, responseJson);
 //console.log(`MaxResults are ${maxResults}`);
 //console.log(`multiSearchTerm is ${multiSearchTerm}`);
 //console.log(`searchTerm is ${searchTerm}`)
-            getOmdbMovieInfo(searchTerm, 1);
-            getOmdbMovieInfo(multiSearchTerm, maxResults);
+            getOmdbMovieInfo(searchTerm, 10);
+            //getOmdbMovieInfo(multiSearchTerm, maxResults);
+            getSimilarMovies(multiSearchTerm);
         });
 
     }
