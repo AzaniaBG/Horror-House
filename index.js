@@ -100,7 +100,8 @@ console.log(`tmdb videoURL is ${videoURL}`)
 console.log(`displayDetails show ratings and plot are`, ratings, plot)
     }
 //find similar movies and list results according to maxResults specified
-    function getSimilarMovies(searchInput) {
+    function getSimilarMovies(searchInput, maxResults) {
+console.log(`maxResults is ${maxResults}`)
 //console.log(`getSimilarMovies ran`)
 //console.log(`getSimilar response data:`, movieID)
         const parameters = {
@@ -121,13 +122,13 @@ console.log(`displayDetails show ratings and plot are`, ratings, plot)
             let overview = results.map(item => item["overview"]);
 //console.log(`overview is ${overview}`)
 //console.log(`results is`, results)
-            results.map(item => {
-                let movieID = item["id"]
-                let movies = item["title"];
+            let titles = results.map(item => item["title"]);
+console.log(`titles are ${titles}`)
+            displaySimilarMovies(titles, maxResults)
 //console.log(`movies is ${movies}`)
-                displaySimilarMovies(movies);
-            });
+               
             //for each result, display them in a list item
+            //displaySimilarMovies(movies, maxResults);
         })
     }
     function parseMovieInfo(responseJson, query) {
@@ -170,9 +171,16 @@ console.log(`imdbID is`, imdbID)
         $("#iFrame-player").html(iFrameElement);    
     }
 
-    function displaySimilarMovies(movieId) {
+    function displaySimilarMovies(movies, maxResults) {
+console.log(`maxResults is ${maxResults}`)
+        for(let i = 0; i < maxResults; i++) {
+            let movie = movies[i];
+            $("ul").append(`<li>${movie}</li>`)
+        }
 //console.log(`movieId is ${movieId}`)
-        $("ul").append(`<li>${movieId}</li>`)
+        
+            
+    
 //          let movieList = results.map(movie => {
 //              let title = movie["title"];
 // //console.log(`title is ${title}`)
