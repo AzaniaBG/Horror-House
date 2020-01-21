@@ -1,0 +1,42 @@
+
+header, h1, h2, div {
+    text-align: center;
+}
+#search-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+button {
+    margin-bottom: 50px;
+    font-size: 20px;
+}
+.hidden {
+    display: none;
+}
+/* ************************ MAIN SCREEN ****************************** */
+
+/* show two search options*/
+#one-movie-search, #similar-movies-search {
+    display: none;
+}
+#js-search-results-screen, #js-similar-movie-results {
+    /* display: none; */
+}
+/* ************************ SEARCH ONE MOVIE SCREEN *******************************/
+#js-search-results-screen {
+    /* display: inline-block */
+}
+
+/* ************************ SEARCH SIMILAR MOVIES SCREEN    *******************************/
+#js-similar-movie-results {
+    /* display: inline-block */
+}
+
+
+
+#error-messages, #search-error-message {
+    color: red;
+    display: none;
+}
