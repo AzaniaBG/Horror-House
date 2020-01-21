@@ -71,7 +71,7 @@ console.log(`getDetailsWithId returns:`, responseJson);
 
     }
     function getYtId(imdbID) {
-console.log(`getYtId ran`)
+//console.log(`getYtId ran`)
                 const params = {
                 api_key: tmdbKey,
                 language: "en-US",
@@ -96,9 +96,6 @@ console.log(`tmdb videoURL is ${videoURL}`)
             })
     }
 
-    function displayDetails(ratings, plot) {
-console.log(`displayDetails show ratings and plot are`, ratings, plot)
-    }
 //find similar movies and list results according to maxResults specified
     function getSimilarMovies(searchInput, maxResults) {
 console.log(`maxResults is ${maxResults}`)
