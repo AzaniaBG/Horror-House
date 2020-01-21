@@ -54,25 +54,24 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         const params = {
             apikey: omdbKey,
             i: id,
-            plot: `short`,
         }
         let queryIdString = formatOmdbQueryParams(params);
         let omdbIdSearchURL = `http://www.omdbapi.com/?` + queryIdString;
-//console.log(`omdbIdSearchURL is ${omdbIdSearchURL}`)
+console.log(`omdbIdSearchURL is ${omdbIdSearchURL}`)
         fetch(omdbIdSearchURL).then(response => response.json()).then(responseJson => {
 console.log(`getDetailsWithId returns:`, responseJson);
-            let ratings = responseJson.Ratings
-            let ratingFilter = ratings.filter(item => item["Source"] === "Internet Movie Database")
-            //let rating = `${ratingFilter[0]["Source"]}: ${ratingFilter[0]["Value"]}`
-//console.log(`rating is`, rating)
-            let descrip = responseJson["Plot"];        
-            displayMovieInfo(ratingFilter, descrip);
+//             let ratings = responseJson.Ratings
+//             let ratingFilter = ratings.filter(item => item["Source"] === "Internet Movie Database")
+//             //let rating = `${ratingFilter[0]["Source"]}: ${ratingFilter[0]["Value"]}`
+// //console.log(`rating is`, rating)
+//             let descrip = responseJson["Plot"];        
+            //displayMovieInfo(ratingFilter, descrip);
 //console.log(`getDetailsWithId descrip is`, descrip)
         })
 
     }
     function getYtId(imdbID) {
-//console.log(`getYtId ran`)
+console.log(`getYtId ran`)
                 const params = {
                 api_key: tmdbKey,
                 language: "en-US",
@@ -80,7 +79,7 @@ console.log(`getDetailsWithId returns:`, responseJson);
             }
             const queryString = formatTmdbQueryParams(params);
             const videoURL = tmdbSearchURL + `${imdbID}/videos?` + queryString;
-//console.log(`tmdb videoURL is ${videoURL}`)
+console.log(`tmdb videoURL is ${videoURL}`)
             fetch(videoURL).then(response => response.json()).then(responseJson => {
 //console.log(`getYtId data is`, responseJson)
                 let videos = responseJson.results;
@@ -137,19 +136,18 @@ console.log(`parseInfo function returns:`, responseJson);
         let movieTitle = responseJson["Title"];
         let movieYear = responseJson["Year"];
         let moviePlot = responseJson["Plot"];
-        let imdbRating = responseJson["imdbRating"]
-console.log(`movieTitle is`, movieTitle)
-console.log(`moviePlot is: `, moviePlot)
-console.log(`imdbRating is ${imdbRating}`)
+        let imdbRating = responseJson["imdbRating"];
+        let imdbID = responseJson["imdbID"];
+console.log(`imdbID is`, imdbID)
         displayMovieInfo(movieTitle, movieYear, moviePlot, imdbRating);
 //             //let movieRating = detail.Ratings["imdbRating"];
 // //console.log(`movieRating is ${movieRating}`, typeof movieRating)
 //             let movieImg = detail["Poster"];
 //             let movieId = detail["imdbID"];
 
-            getYtId(movieId);
+            getYtId(imdbID);
 //console.log(`getYtId`)
-            getDetailsWithId(movieId);
+            getDetailsWithId(imdbID);
             //getSimilarMovies(movieId); 
             //displayMovieInfo()          
 }
@@ -162,6 +160,7 @@ console.log(`imdbRating is ${imdbRating}`)
 //console.log(`rating is`, rating);
         $("#one-movie-description").html(movieInfoString);
     }
+
     function displayVideoTrailer(ytID) {
 //console.log(`ytID from displayVideoTrailer is:`, ytID)       
 //console.log(`vidID is ${vidID}`)
