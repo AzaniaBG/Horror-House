@@ -38,7 +38,10 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
            .then(responseJson => {
                 parseMovieInfo(responseJson, query);
                 let info = responseJson.Search;
-                let imdbID = info[0]["imdbID"];
+console.log(responseJson);
+
+                let imdbID = responseJson["imdbID"];
+console.log(`imdbID is`, imdbID);
             });
     }
 
@@ -116,7 +119,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
     function displayVideoTrailer(ytID) {
 
         let trailer = `https://www.youtube.com/embed/${ytID}?enablejsapi=1&origin=https://m.media-amazon.com/images/M/MV5BMTUyNzkwMzAxOF5BMl5BanBnXkFtZTgwMzc1OTk1NjE@._V1_SX300.jpg`
-        let iFrameElement = `<iFrame id="iFrame-player" type="text/html" width="480" height="400"src="${trailer}"></iFrame>`
+        let iFrameElement = `<iFrame id="iFrame-player" type="text/html" width="200" height="200"src="${trailer}"></iFrame>`
         $("#iFrame-player").html(iFrameElement);    
     }
 
