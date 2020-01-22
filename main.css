@@ -2,7 +2,7 @@
 header, h1, h2, div {
     text-align: center;
 }
-#search-options {
+#search-options, #js-one-movie-results, #js-similar-movie-results {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,7 +22,7 @@ button {
     display: none;
 }
 #js-one-movie-results, #js-similar-movie-results {
-    /* display: none; */
+    
 }
 /* ************************ SEARCH ONE MOVIE SCREEN *******************************/
 #js-one-movie-results {
