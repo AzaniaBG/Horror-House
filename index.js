@@ -42,7 +42,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             })
            .then(responseJson => {
                 parseMovieInfo(responseJson, query);
-                let imdbID = responseJson["imdbID"];
+                
             }).catch(err => console.log("Oh the HORROR! Something went wrong :(", err));
     }
 
@@ -149,7 +149,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         });
     }
     function handleOneSubmitButton() {
-        $("#js-one-movie-button").on("click", event => {
+        $("#js-one-movie-search-button").on("click", event => {
             event.preventDefault();
             let searchTerm = $("#js-one-movie-search").val();
             //empty search results in order to permit new search 
