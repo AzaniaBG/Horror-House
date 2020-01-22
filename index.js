@@ -49,7 +49,13 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         }
         let queryIdString = formatOmdbQueryParams(params);
         let omdbIdSearchURL = `http://www.omdbapi.com/?` + queryIdString;
-        fetch(omdbIdSearchURL).then(response => response.json()).then(responseJson => {
+        fetch(omdbIdSearchURL).then(response => {
+            if(response.ok) {
+                return response.json();
+            } throw new Error("Oh the HORROR! Something went wrong :(")
+            }).then(responseJson => {
+        }).catch(err => {
+            $("#error-messages").html(err)
         })
 
     }
@@ -156,7 +162,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             let multiSearchTerm = $("#js-similar-movies").val();
             let maxResults = $("#js-max-results").val();
             $("#js-similar-movies").val("");
-            $("#js-max-results").val("");
+            
             getSimilarMovies(multiSearchTerm, maxResults);
             $("#one-movie-search").hide();
             $("#js-one-movie-results").hide();     
