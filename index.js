@@ -122,13 +122,15 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         }
     }
 
-    function handleSearchButtons() {
+    function handleOneSearchButton() {
         $("#js-search-one").on("click", event => {
             event.preventDefault();
             $("#one-movie-search").show();
             $("#js-search-one").hide();
             $("#js-multiSearch").toggleClass("hidden");
         });
+    }
+    function handleMultiSearchButton() {
         $("#js-multiSearch").on("click", event => {
             event.preventDefault();
             $("#similar-movies-search").show();
@@ -136,39 +138,40 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             $("#js-search-one").hide();
         });
     }
-    function handleSubmitButtons() {
-        $("#js-one-movie-button").on("submit", event => {
+    function handleOneSubmitButton() {
+        $("#js-one-movie-button").on("click", event => {
             event.preventDefault();
-            $("#one-movie-search").show();
+            let searchTerm = $("#js-one-movie-search").val();
+            //empty search results in order to permit new search 
+            $("#js-one-movie-search").val("");
+            getOmdbMovieInfo(searchTerm, 10);
             $("#similar-movies-search").hide();
-            
+            $("#one-movie-search").show();
+            $("#js-one-movie-results").show(); 
         });
-        $("#js-multi-search-button").on("submit", event => {
+    }
+    function handleMultiSubmitButton() {
+        $("#js-multi-search-button").on("click", event => {
             event.preventDefault();
-            $("#js-similar-movie-results").show();
+            let multiSearchTerm = $("#js-similar-movies").val();
+            let maxResults = $("#js-max-results").val();
+            $("#js-similar-movies").val("");
+            $("#js-max-results").val("");
+            getSimilarMovies(multiSearchTerm, maxResults);
+            $("#one-movie-search").hide();
             $("#js-one-movie-results").hide();     
+            $("#js-similar-movie-results").show();
         })
     }
     
-//watch the form and get user input
-    function watchForm() {   
-        handleSearchButtons();
-        handleSubmitButtons();
-    //when a user searches for one movie, get the value and pass that value to GET request
-        $("form").on("submit", event => {
-            event.preventDefault();          
-            let searchTerm = $("#js-one-movie-search").val();
-            let multiSearchTerm = $("#js-similar-movies").val();
-            let maxResults = $("#js-max-results").val();
-            getOmdbMovieInfo(searchTerm, 10);
-            getSimilarMovies(multiSearchTerm, maxResults);
-    //empty search results in order to permit new search 
-            searchTerm.val("");
-            multiSearchTerm.val("");
-            maxResults.val("");
-        });
+
+    function initApp() {
+        handleOneSearchButton();
+        handleOneSubmitButton();
+        handleMultiSearchButton();
+        handleMultiSubmitButton();
 
     }
     
 //ACTIVATE APP--call j$ and pass in a callback function to run when the page loads
-$(watchForm)
+$(initApp)
