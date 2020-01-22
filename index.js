@@ -142,10 +142,10 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         });
     }
     function handleMultiSearchButton() {
-        $("#js-multiSearch-button").on("click", event => {
+        $("#js-multi-search-button").on("click", event => {
             event.preventDefault();
             
-            $("#js-multiSearch-button").hide();
+            $("#js-multi-search-button").hide();
             $("#js-search-one").hide();
             $("#similar-movies-search").show();
         });
