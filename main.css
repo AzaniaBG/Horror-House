@@ -2,11 +2,16 @@
 header, h1, h2, div {
     text-align: center;
 }
-#search-options, #js-one-movie-results, #js-similar-movie-results {
+#search-options, #js-one-movie-results, #js-similar-movie-results, #one-movie-description {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+aside {
+    flex-wrap: wrap;
+    width: 50%;
+    flex-shrink: 3;
 }
 button {
     margin-bottom: 50px;
