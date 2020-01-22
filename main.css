@@ -40,3 +40,8 @@ button {
     color: red;
     display: none;
 }
+/* ************************ BREAKPOINTS   *******************************/
+/* ************************ MOBILE   *******************************/
+@media only screen and (max-width: 320px) {
+
+}
