@@ -34,15 +34,16 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         const searchURL = omdbSearchURL + queryString;
 
         fetch(searchURL)
-           .then(response => response.json())
+           .then(response => {
+               if(response.ok) {
+                return response.json();
+               }
+               throw new Error(response.statusText);
+            })
            .then(responseJson => {
                 parseMovieInfo(responseJson, query);
-                let info = responseJson.Search;
-console.log(responseJson);
-
                 let imdbID = responseJson["imdbID"];
-console.log(`imdbID is`, imdbID);
-            });
+            }).catch(err => console.log("Oh the HORROR! Something went wrong :(", err));
     }
 
     function  getDetailsWithId(id) {
