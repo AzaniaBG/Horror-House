@@ -133,21 +133,24 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
     }
 
     function handleOneSearchButton() {
+            $("#search-screen-header").hide();
         $("#js-search-one").on("click", event => {
             event.preventDefault();
-            
+            $("#main-screen-header").hide();
+            $("#js-multi-search-button").hide();
             $("#js-search-one").hide();
             $("#one-movie-search").show();
-            //$("#js-multiSearch-button").toggleClass("hidden");
+            $("#search-screen-header").show();
         });
     }
     function handleMultiSearchButton() {
         $("#js-multi-search-button").on("click", event => {
-            event.preventDefault();
-            
+            event.preventDefault();    
+            $("#main-screen-header").hide();
             $("#js-multi-search-button").hide();
             $("#js-search-one").hide();
             $("#similar-movies-search").show();
+            $("#search-screen-header").show();
         });
     }
     function handleOneSubmitButton() {
@@ -157,28 +160,12 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             //empty search results in order to permit new search 
             $("#js-one-movie-search").val("");
             getOmdbMovieInfo(searchTerm, 10);
+            // $("#main-screen-header").hide();
+            $("#similar-movies-search").hide();
+            //$("#search-screen-header").hide();
             $("#one-movie-search").show();
             $("#js-one-movie-results").show();
-            $("#js-new-search-one-movie-screen").show(); 
-            $("#js-new-search-similars-screen").show();
         });
-    }
-    function handleNewSearchForOne() {
-        $("#js-one-movie-search-button").on("click", event => {
-            event.preventDefault();
-            let searchTerm = $("#js-one-movie-search").val();
-            //empty search results in order to permit new search 
-            $("#js-one-movie-search").val("");
-            getOmdbMovieInfo(searchTerm, 10);
-            $("#js-new-search-one-movie-screen").hide(); 
-            $("#js-new-search-similars-screen").hide();
-            $("#similar-movies-search").hide();
-        });
-    }
-
-    function handleNewSearchForMany() {
-        
-
     }
 
     function handleMultiSubmitButton() {
@@ -187,16 +174,20 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             let multiSearchTerm = $("#js-similar-movies").val();
             let maxResults = $("#js-max-results").val();
             $("#js-similar-movies").val("");
-            
             getSimilarMovies(multiSearchTerm, maxResults);
-            $("#js-new-search-one-movie-screen").hide(); 
-            $("#js-new-search-similars-screen").hide();
+            $("#main-screen-header").hide();
             $("#one-movie-search").hide();
             $("#js-one-movie-results").hide();     
             $("#js-similar-movie-results").show();
-            $("#js-new-search-one-movie-screen").show(); 
-            $("#js-new-search-similars-screen").show();
         })
+    }
+    function handleNewSearchForOne() {
+        
+    }
+
+    function handleNewSearchForMulti() {
+        
+
     }
     
 
