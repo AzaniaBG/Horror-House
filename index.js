@@ -120,7 +120,7 @@ console.log(`maxResults is ${maxResults}`)
 //console.log(`overview is ${overview}`)
 //console.log(`results is`, results)
             let titles = results.map(item => item["title"]);
-console.log(`titles are ${titles}`)
+//console.log(`titles are ${titles}`)
             displaySimilarMovies(titles, maxResults)
 //console.log(`movies is ${movies}`)
                
@@ -169,10 +169,12 @@ console.log(`imdbID is`, imdbID)
     }
 
     function displaySimilarMovies(movies, maxResults) {
-console.log(`maxResults is ${maxResults}`)
+        $("li").detach();
+// console.log(`maxResults is ${maxResults}`)
         for(let i = 0; i < maxResults; i++) {
-            let movie = movies[i];
-            $("ul").append(`<li>${movie}</li>`)
+            let movie = `<li>${movies[i]}</li>`;
+            $("ul").append(movie);
+            
         }
 //console.log(`movieId is ${movieId}`)
         
