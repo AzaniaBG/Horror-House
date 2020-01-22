@@ -146,7 +146,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         $("#js-multi-search-button").on("submit", event => {
             event.preventDefault();
             $("#js-similar-movie-results").show();
-            
+            $("#js-one-movie-results").hide();     
         })
     }
     
@@ -154,18 +154,15 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
     function watchForm() {   
         handleSearchButtons();
         handleSubmitButtons();
-    //when a user searches for one movie, get the value, include that value in GET request
+    //when a user searches for one movie, get the value and pass that value to GET request
         $("form").on("submit", event => {
             event.preventDefault();          
             let searchTerm = $("#js-one-movie-search").val();
             let multiSearchTerm = $("#js-similar-movies").val();
             let maxResults = $("#js-max-results").val();
-//console.log(`MaxResults are ${maxResults}`);
-//console.log(`multiSearchTerm is ${multiSearchTerm}`);
-//console.log(`searchTerm is ${searchTerm}`)
             getOmdbMovieInfo(searchTerm, 10);
-            //getOmdbMovieInfo(multiSearchTerm, maxResults);
             getSimilarMovies(multiSearchTerm, maxResults);
+    //empty search results in order to permit new search 
             searchTerm.val("");
             multiSearchTerm.val("");
             maxResults.val("");
