@@ -8,12 +8,7 @@ header, h1, h2, div {
     justify-content: center;
     align-items: center;
 }
-aside {
-    flex-wrap: wrap;
-    width: 30%;
-    flex-shrink: 1;
-    justify-content: space-around;
-}
+
 button {
     margin-bottom: 50px;
     font-size: 20px;
@@ -48,6 +43,12 @@ button {
 }
 /* ************************ BREAKPOINTS   *******************************/
 /* ************************ MOBILE   *******************************/
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 420px) {
+    aside {
+        flex-wrap: wrap;
+        width: 75%;
+        justify-content: space-around;
+        justify-content: space-evenly;
+    }
 
 }

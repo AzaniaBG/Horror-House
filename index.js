@@ -112,8 +112,8 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
 
 //display information related to search results for one movie
     function displayMovieInfo(title, year, plot, rating) {
-        let movieInfoString = `<h3>${title} (${year})</h3><p> IMDB Rating: ${rating}</p>
-        <aside>${plot}</aside>`;
+        let movieInfoString = `<h3>${title} (${year})</h3>
+        <aside>IMDB Rating: ${rating} <br>${plot}</aside>`;
         $("#one-movie-description").html(movieInfoString);
     }
 
@@ -137,18 +137,19 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         $("#js-search-one").on("click", event => {
             event.preventDefault();
             $("#main-screen-header").hide();
-            $("#js-multi-search-button").hide();
+            $("#js-multi-search-option").hide();
             $("#js-search-one").hide();
             $("#one-movie-search").show();
             $("#search-screen-header").show();
         });
     }
     function handleMultiSearchButton() {
-        $("#js-multi-search-button").on("click", event => {
+        $("#js-multi-search-option").on("click", event => {
             event.preventDefault();    
             $("#main-screen-header").hide();
-            $("#js-multi-search-button").hide();
             $("#js-search-one").hide();
+            $("#js-multi-search-option").hide();
+            $("#js-multi-search-button").show();
             $("#similar-movies-search").show();
             $("#search-screen-header").show();
         });
