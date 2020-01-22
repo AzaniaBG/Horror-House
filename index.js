@@ -157,15 +157,30 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             //empty search results in order to permit new search 
             $("#js-one-movie-search").val("");
             getOmdbMovieInfo(searchTerm, 10);
-            $("#js-new-search-one-movie-screen").hide(); 
-            $("#js-new-search-similars-screen").hide();
-            $("#similar-movies-search").hide();
             $("#one-movie-search").show();
             $("#js-one-movie-results").show();
             $("#js-new-search-one-movie-screen").show(); 
             $("#js-new-search-similars-screen").show();
         });
     }
+    function handleNewSearchForOne() {
+        $("#js-one-movie-search-button").on("click", event => {
+            event.preventDefault();
+            let searchTerm = $("#js-one-movie-search").val();
+            //empty search results in order to permit new search 
+            $("#js-one-movie-search").val("");
+            getOmdbMovieInfo(searchTerm, 10);
+            $("#js-new-search-one-movie-screen").hide(); 
+            $("#js-new-search-similars-screen").hide();
+            $("#similar-movies-search").hide();
+        });
+    }
+
+    function handleNewSearchForMany() {
+        
+
+    }
+
     function handleMultiSubmitButton() {
         $("#js-multi-search-button").on("click", event => {
             event.preventDefault();
