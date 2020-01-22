@@ -238,6 +238,9 @@ console.log(`maxResults is ${maxResults}`)
             getOmdbMovieInfo(searchTerm, 10);
             //getOmdbMovieInfo(multiSearchTerm, maxResults);
             getSimilarMovies(multiSearchTerm, maxResults);
+            searchTerm.val("");
+            multiSearchTerm.val("");
+            maxResults.val("");
         });
 
     }
