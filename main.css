@@ -21,11 +21,11 @@ button {
 #one-movie-search, #similar-movies-search {
     display: none;
 }
-#js-search-results-screen, #js-similar-movie-results {
+#js-one-movie-results, #js-similar-movie-results {
     /* display: none; */
 }
 /* ************************ SEARCH ONE MOVIE SCREEN *******************************/
-#js-search-results-screen {
+#js-one-movie-results {
     /* display: inline-block */
 }
 
