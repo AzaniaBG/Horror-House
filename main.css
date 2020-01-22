@@ -10,8 +10,9 @@ header, h1, h2, div {
 }
 aside {
     flex-wrap: wrap;
-    width: 50%;
-    flex-shrink: 3;
+    width: 30%;
+    flex-shrink: 1;
+    justify-content: space-around;
 }
 button {
     margin-bottom: 50px;
