@@ -19,6 +19,10 @@ button {
     margin-bottom: 50px;
     font-size: 20px;
 }
+button:hover {
+    color: white;
+    background-color: red;
+}
 .hidden {
     display: none;
 }
@@ -78,6 +82,12 @@ button {
         justify-content: space-around;
         justify-content: space-evenly;
         flex-shrink: 2;
+    }
+    body {
+        background-image: url(images/amityvilleHouse.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 50%;
     }
 
 }
