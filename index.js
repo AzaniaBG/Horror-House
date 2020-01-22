@@ -135,17 +135,19 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
     function handleOneSearchButton() {
         $("#js-search-one").on("click", event => {
             event.preventDefault();
-            $("#one-movie-search").show();
+            
             $("#js-search-one").hide();
-            $("#js-multiSearch-button").toggleClass("hidden");
+            $("#one-movie-search").show();
+            //$("#js-multiSearch-button").toggleClass("hidden");
         });
     }
     function handleMultiSearchButton() {
         $("#js-multiSearch-button").on("click", event => {
             event.preventDefault();
-            $("#similar-movies-search").show();
+            
             $("#js-multiSearch-button").hide();
             $("#js-search-one").hide();
+            $("#similar-movies-search").show();
         });
     }
     function handleOneSubmitButton() {
@@ -155,9 +157,13 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             //empty search results in order to permit new search 
             $("#js-one-movie-search").val("");
             getOmdbMovieInfo(searchTerm, 10);
+            $("#js-new-search-one-movie-screen").hide(); 
+            $("#js-new-search-similars-screen").hide();
             $("#similar-movies-search").hide();
             $("#one-movie-search").show();
-            $("#js-one-movie-results").show(); 
+            $("#js-one-movie-results").show();
+            $("#js-new-search-one-movie-screen").show(); 
+            $("#js-new-search-similars-screen").show();
         });
     }
     function handleMultiSubmitButton() {
@@ -168,9 +174,13 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             $("#js-similar-movies").val("");
             
             getSimilarMovies(multiSearchTerm, maxResults);
+            $("#js-new-search-one-movie-screen").hide(); 
+            $("#js-new-search-similars-screen").hide();
             $("#one-movie-search").hide();
             $("#js-one-movie-results").hide();     
             $("#js-similar-movie-results").show();
+            $("#js-new-search-one-movie-screen").show(); 
+            $("#js-new-search-similars-screen").show();
         })
     }
     
