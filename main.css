@@ -32,7 +32,7 @@ button:hover {
 /* ************************ MAIN SCREEN ****************************** */
 
 /* show two search options*/
-#one-movie-search, #similar-movies-search, #similars-search-screen-header {
+#one-movie-search, #similar-movies-search, #similars-search-screen-header, #js-new-search {
     display: none;
 }
 
