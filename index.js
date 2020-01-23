@@ -59,7 +59,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             } throw new Error("Oh the HORROR! Something went wrong :(")
             }).then(responseJson => {
         }).catch(err => {
-            $("#error-messages").html(err)
+            $("#js-error-messages").html(err)
         })
 
     }
@@ -132,18 +132,19 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             $("ul").append(movie);         
         }
     }
-
+//main screen button
     function handleOneSearchButton() {
             $("#search-screen-header").hide();
         $("#js-search-one").on("click", event => {
             event.preventDefault();
             $("#main-screen-header").hide();
             $("#js-multi-search-option").hide();
-            $("#js-search-one").hide();
-            $("#one-movie-search").show();
+            $("#js-search-one").show();
+            $("#js-single-search-option").show();
             $("#search-screen-header").show();
         });
     }
+//main screen button
     function handleMultiSearchButton() {
         $("#js-multi-search-option").on("click", event => {
             event.preventDefault();    
@@ -165,7 +166,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             // $("#main-screen-header").hide();
             $("#similar-movies-search").hide();
             //$("#search-screen-header").hide();
-            $("#one-movie-search").show();
+            $("#js-search-one").show();
             $("#js-one-movie-results").show();
         });
     }
@@ -178,7 +179,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             $("#js-similar-movies").val("");
             getSimilarMovies(multiSearchTerm, maxResults);
             $("#main-screen-header").hide();
-            $("#one-movie-search").hide();
+            $("#js-search-one").hide();
             $("#js-one-movie-results").hide();     
             $("#js-similar-movie-results").show();
         })

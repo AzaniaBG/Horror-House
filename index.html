@@ -17,19 +17,25 @@
         <h2>Enter if you dare.</h2>
     </header>
         
-    <header role="heading" id="search-screen-header">
+    <header role="heading" id="one-movie-search-screen-header">
         <h1>Movie Search</h1>
         <h2></h2>
     </header>
 
-    <section role="alert" id="error-messages" class="hidden">
+    <header role="heading" id="similar-movies-search-screen-header">
+        <h1>Similar Movies Search</h1>
+        <h2></h2>
+    </header>
+
+    <section role="alert" id="js-error-messages" class="hidden">
         <h2 id="search-error-message" class="hidden"></h2>
     </section>
 
-    <form role="main">
-        <fieldset>
-            <label>Search for a Movie.
-                <input>
+    <form role="search">
+        <button role="button"  id="js-single-search-option">Search for a Movie</button>
+        <fieldset id="js-search-one">
+            <label for="js-search-one-movie"><h3>Search for a Movie.</h3>
+                <input id="js-search-one-movie">
             </label>
             <button role="button"  id="js-one-movie-search-button">ENTER</button>
         </fieldset>
@@ -54,7 +60,7 @@
 
 
 
-<!--///////////////////////////// (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
+<!--///////////////////////////// ONE MOVIE SEARCH RESULTS SCREEN///////////////////////////////-->
     
     <section id="js-one-movie-results">
         <div id="iFrame-player" src="#" class="js-trailer"></div>
@@ -67,11 +73,11 @@
         <!-- <h1>Movie Title & Year: </h1>
         <aside>Rating: </aside> -->
         <form role="search" id="js-new-search-one-movie-screen">
-            <!-- <button id="js-multi-search-button">Find Similar Movies</button>
-            <button id="js-one-movie-search-button">Search for One Movie</button> -->
+            <button id="js-multi-search-button">Find Similar Movies</button>
+            <button id="js-one-movie-search-button">Search for One Movie</button>
         </form>
     </section>
-<!--/////////////////////////////END (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
+<!--/////////////////////////////END ONE MOVIE SEARCH RESULTs SCREEN///////////////////////////////-->
 
 <!--/////////////////////////////SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
     <section id="js-similar-movie-results">
@@ -90,12 +96,7 @@
     </section>
 <!--/////////////////////////////END SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
     <footer>
-        <nav>Results:
-            <a>Next</a>
-            <a>Previous</a>
-        </nav>
         <img role="img" alt="The Movie Data Base logo">
-        <p></p>
     </footer>
 <script
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"

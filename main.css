@@ -35,7 +35,7 @@ button:hover {
 /* ************************ MAIN SCREEN ****************************** */
 
 /* show two search options*/
-#one-movie-search, #similar-movies-search {
+#similar-movies-search, #js-search-one {
     display: none;
 }
 
