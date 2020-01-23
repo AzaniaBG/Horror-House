@@ -13,21 +13,30 @@
 <body role="main">
 <!--/////////////////////////////MAIN SCREEN///////////////////////////////-->
     
-    <header role="header" id="main-screen-header">
+    <header role="heading" id="main-screen-header">
         <h1>Greetings. Welcome to the Horror House.</h1>
         <h2>Enter if you dare.</h2>
     </header>
+    <form>
+        <fieldset id="search-options">
+            <button role="button" id="js-search-one">Search for a Movie</button>
+            <button role="button"  id="js-multi-search-option">Find Similar Movies</button>
+        </fieldset>
+            
+    </form>
+    <!--/////////////////////////////END MAIN SCREEN///////////////////////////////-->
+
     <!--/////////////////////////////SEARCH SCREEN///////////////////////////////-->
-    <header role="header" id="search-screen-header">
+    <header role="heading" id="search-screen-header">
             <h1>Movie Search</h1>
             <h2></h2>
         </header>
-    <!--/////////////////////////////END SEARCH SCREEN///////////////////////////////-->
+    
     <section role="alert" id="error-messages" class="hidden">
         <h2 id="search-error-message" class="hidden"></h2>
     </section>
-    <form role="search" id="search-options">
-        <button role="button" id="js-search-one">Search for a Movie</button>
+    <form role="search" >
+        
         <fieldset id="one-movie-search">
             <label><h3>Search for a Movie.</h3>
                 <input id="js-one-movie-search">
@@ -35,7 +44,7 @@
             <button role="button"  id="js-one-movie-search-button">ENTER</button>
         </fieldset>
 
-        <button role="button"  id="js-multi-search-option">Find Similar Movies</button>
+        
         <fieldset id="similar-movies-search">
             <label><h3>Find Similar Movies.</h3>
                 <input id="js-similar-movies">
@@ -51,7 +60,8 @@
                 <button role="button" id="js-multi-search-button">ENTER</button>
         </fieldset>
     </form>
-<!--/////////////////////////////END MAIN SCREEN///////////////////////////////-->
+    <!--/////////////////////////////END SEARCH SCREEN///////////////////////////////-->
+
 
 
 
