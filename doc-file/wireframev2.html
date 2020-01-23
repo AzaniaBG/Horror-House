@@ -10,11 +10,11 @@
     <link rel="stylesheet" type="text/css" href="main.css">
     <link rel="stylesheet" type="image" href="images/amityvilleHouse.png" alt="Black-and-white haunted Amityville House, pictured at night in the negative.">
 </head>
-<body role="main">
+<body>
 <!--/////////////////////////////MAIN SCREEN///////////////////////////////-->
     <header role="heading" id="main-screen-header">
         <h1>Greetings. Welcome to the Horror House.</h1>
-        <h2>Enter if you dare.</h2>
+        <p>Enter if you dare</p>
     </header>
         
     <header role="heading" id="search-screen-header">
@@ -26,88 +26,78 @@
         <h2 id="search-error-message" class="hidden"></h2>
     </section>
 
-    <form role="main">
+    <form role="main" id="search-options">
         <fieldset>
             <label>Search for a Movie.
                 <input>
             </label>
-            <button role="button"  id="js-one-movie-search-button">ENTER</button>
-        </fieldset>
+            <button role="button">ENTER</button>
 
-        <button role="button"  id="js-multi-search-option">Find Similar Movies</button>
-        <fieldset id="similar-movies-search">
-            <label><h3>Find Similar Movies.</h3>
-                <input id="js-similar-movies">
-                <select id="js-max-results" name="results">
+        </fieldset>
+            <label>Find Similar Movies.
+                <input>
+                <select name="results">
+                    <option value="1">1</option>
                     <option value="3">3</option>
                     <option value="5">5</option>
                     <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
+                    <option value="20">1</option>
+                    <option value="50">1</option>
+                    <option value="100">1</option>
                 </select>
             </label>
-                <button role="button" id="js-multi-search-button">ENTER</button>
+                <button role="button">ENTER</button>
+
+        <fieldset>
+
         </fieldset>
     </form>
 <!--/////////////////////////////END MAIN SCREEN///////////////////////////////-->
 
-
-
 <!--///////////////////////////// (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
-    
-    <section id="js-one-movie-results">
-        <div id="iFrame-player" src="#" class="js-trailer"></div>
-        <h1 id="one-movie" ></h1>
-        <span id="one-movie-description" ></span>
-        <article></article>
-        <!--copy/paste additional elements above if there are remakes-->
-        <header id="js-remakes-of-movie">
-        </header>
-        <!-- <h1>Movie Title & Year: </h1>
-        <aside>Rating: </aside> -->
-        <form role="search" id="js-new-search-one-movie-screen">
-            <!-- <button id="js-multi-search-button">Find Similar Movies</button>
-            <button id="js-one-movie-search-button">Search for One Movie</button> -->
-        </form>
-    </section>
+    <header role="heading" id="js-one-movie-result">
+        <video id="js-trailer"></video>
+    </header>
+    <h1>Movie Title: </h1>
+        <img src="" alt="poster for movie">
+        <picture></picture>
+        <aside>Rating: </aside>
+    <h2>Info/Description</h2>
+    <article></article>
+    <!--copy/paste additional elements above if there are remakes-->
+    <header role="heading" id="js-remakes-of-movie">
+        <video id="js-trailer"></video>
+    </header>
+    <h1>Movie Title & Year: </h1>
+    <aside>Rating: </aside>
 <!--/////////////////////////////END (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
 
 <!--/////////////////////////////SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
-    <section id="js-similar-movie-results">
-        <header role="header">
-            <h1></h1>
-        </header>
-        <ul id="js-similar-movies-list">
-        </ul>
-        <section>
-        </section>
-        <video>Watch Trailer: </video>
-        <form role="search" id="js-new-search-similars-screen">
-            <!-- <button id="js-multi-search-button">Find Similar Movies</button>
-            <button id="js-one-movie-search-button">Search for One Movie</button> -->
-        </form>
+    <header role="heading" id="js-similar-movie-results">
+        <h1>Movie Title: </h1>
+    </header>
+    <section>Info/Description:
+
     </section>
+    <video>Watch Trailer: </video>
+    
 <!--/////////////////////////////END SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
-    <footer>
-        <nav>Results:
-            <a>Next</a>
-            <a>Previous</a>
-        </nav>
-        <img role="img" alt="The Movie Data Base logo">
-        <p></p>
-    </footer>
 <script
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
   integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
-  crossorigin="anonymous">
-</script>
-
+  crossorigin="anonymous"></script>
 <script
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
   integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
   crossorigin="anonymous"></script>
 <script type="text/javascript" src="index.js"></script>
 </body>
-
+<footer>
+    <div>Results:
+        <a>Next</a>
+        <a>Previous</a>
+    </div>
+    <img>
+    <p></p>
+</footer>
 </html>
