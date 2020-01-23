@@ -133,27 +133,29 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             $("ul").append(movie);         
         }
     }
-
+//show one movie search screen
     function handleOneSearch() {
             $("#search-screen-header").hide();
         $("#js-search-one").on("click", event => {
             event.preventDefault();
             $("#main-screen-header").hide();
+            $("#similars-search-screen-header").hide();
             $("#js-multi-search-option").hide();
             $("#js-search-one").hide();
             $("#one-movie-search").show();
             $("#search-screen-header").show();
         });
     }
+    //show similar movies search screen
     function handleMultiSearch() {
         $("#js-multi-search-option").on("click", event => {
             event.preventDefault();    
             $("#main-screen-header").hide();
             $("#js-search-one").hide();
             $("#js-multi-search-option").hide();
+            $("#similars-search-screen-header").show();
             $("#js-multi-search-button").show();
             $("#similar-movies-search").show();
-            $("#search-screen-header").show();
         });
     }
     function handleOneSubmitButton() {
