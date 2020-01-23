@@ -5,28 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Azania Baker-Garcia, ABG, GitHub project, API Hack Capstone. Search for horror movies and find related content.">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <title>API-Horror-House</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <link rel="stylesheet" type="image" href="images/amityvilleHouse.png" alt="Black-and-white haunted Amityville House, pictured at night in the negative.">
+    <title>API Hack Wireframe</title>
 </head>
 <body>
 <!--/////////////////////////////MAIN SCREEN///////////////////////////////-->
-    <header role="heading" id="main-screen-header">
+    <header>
         <h1>Greetings. Welcome to the Horror House.</h1>
-        <p>Enter if you dare</p>
     </header>
-        
-    <header role="heading" id="search-screen-header">
-        <h1>Movie Search</h1>
-        <h2></h2>
-    </header>
-
-    <section role="alert" id="error-messages" class="hidden">
-        <h2 id="search-error-message" class="hidden"></h2>
-    </section>
-
-    <form role="main">
+    <form>
         <fieldset>
             <label>Search for a Movie.
                 <input>
@@ -55,7 +41,7 @@
 <!--/////////////////////////////END MAIN SCREEN///////////////////////////////-->
 
 <!--///////////////////////////// (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
-    <header role="heading" id="js-one-movie-result">
+    <header id="js-one-movie-result">
         <video id="js-trailer"></video>
     </header>
     <h1>Movie Title: </h1>
@@ -65,7 +51,7 @@
     <h2>Info/Description</h2>
     <article></article>
     <!--copy/paste additional elements above if there are remakes-->
-    <header role="heading" id="js-remakes-of-movie">
+    <header id="js-remakes-of-movie">
         <video id="js-trailer"></video>
     </header>
     <h1>Movie Title & Year: </h1>
@@ -73,7 +59,7 @@
 <!--/////////////////////////////END (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
 
 <!--/////////////////////////////SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
-    <header role="heading" id="js-similar-movie-results">
+    <header id="js-similar-movie-results">
         <h1>Movie Title: </h1>
     </header>
     <section>Info/Description:
@@ -82,15 +68,6 @@
     <video>Watch Trailer: </video>
     
 <!--/////////////////////////////END SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
-<script
-  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
-  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
-  crossorigin="anonymous"></script>
-<script
-  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
-  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
-  crossorigin="anonymous"></script>
-<script type="text/javascript" src="index.js"></script>
 </body>
 <footer>
     <div>Results:
