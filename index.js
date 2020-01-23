@@ -113,7 +113,8 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
 //display information related to search results for one movie
     function displayMovieInfo(title, year, plot, rating) {
         let movieInfoString = `<h3>${title} (${year})</h3>
-        <aside>IMDB Rating: ${rating} <br>${plot}</aside>
+        <aside>IMDB Rating: ${rating}</aside>
+        <article>${plot}</article>
         <video></video>`;
         $("#one-movie-description").html(movieInfoString);
     }
