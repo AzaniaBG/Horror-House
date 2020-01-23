@@ -145,7 +145,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             $("#search-screen-header").show();
         });
     }
-    function handleOneSearch() {
+    function handleMultiSearch() {
         $("#js-multi-search-option").on("click", event => {
             event.preventDefault();    
             $("#main-screen-header").hide();
