@@ -186,7 +186,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             $("#js-similar-movie-results").show();
         })
     }
-    function handleNewSearchForOne() {
+    function handleNewSearch() {
         
     }
 
@@ -201,6 +201,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         handleOneSubmitButton();
         handleMultiSearch();
         handleMultiSubmitButton();
+        handleNewSearch();
 
     }
     
