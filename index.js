@@ -134,7 +134,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
         }
     }
 
-    function handleOneSearchButton() {
+    function handleOneSearch() {
             $("#search-screen-header").hide();
         $("#js-search-one").on("click", event => {
             event.preventDefault();
@@ -145,7 +145,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             $("#search-screen-header").show();
         });
     }
-    function handleMultiSearchButton() {
+    function handleOneSearch() {
         $("#js-multi-search-option").on("click", event => {
             event.preventDefault();    
             $("#main-screen-header").hide();
@@ -195,9 +195,9 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
     
 
     function initApp() {
-        handleOneSearchButton();
+        handleOneSearch();
         handleOneSubmitButton();
-        handleMultiSearchButton();
+        handleMultiSearch();
         handleMultiSubmitButton();
 
     }
