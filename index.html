@@ -43,16 +43,16 @@
     </section>
     <!--/////////////////////////////SEARCH SCREEN///////////////////////////////--> 
 
-    <form role="search" >   
-        <fieldset id="one-movie-search">
-            <label><h3>Search for a Movie.</h3>
-                <input id="js-one-movie-search">
+    <form role="search">   
+        <fieldset id="one-movie-search" class="form one-movie">
+            <label class="form one-movie"><h3>Search for a Movie.</h3>
+                <input id="js-one-movie-search" class="form one-movie">
             </label>
-            <button role="button"  id="js-one-movie-search-button">ENTER</button>
+            <button role="button"  id="js-one-movie-search-button" class="one-movie">ENTER</button>
         </fieldset>
      
-        <fieldset id="similar-movies-search">
-            <label><h3>Find Similar Movies.</h3>
+        <fieldset id="similar-movies-search" class="form similar-movies">
+            <label class="similar-movies"><h3>Find Similar Movies.</h3>
                 <input id="js-similar-movies">
                 <select id="js-max-results" name="results">
                     <option value="3">3</option>
@@ -63,7 +63,7 @@
                     <option value="100">100</option>
                 </select>
             </label>
-                <button role="button" id="js-multi-search-button">ENTER</button>
+                <button role="button" id="js-multi-search-button" class="form similar-movies">ENTER</button>
         </fieldset>
     </form>
     <!--/////////////////////////////END SEARCH SCREEN///////////////////////////////-->
@@ -73,34 +73,30 @@
 
 <!--///////////////////////////// (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
     
-    <section id="js-one-movie-results">
-        <div id="iFrame-player" src="#" class="js-trailer"></div>
-        <h1 id="one-movie" ></h1>
-        <span id="one-movie-description" ></span>
-        <article></article>
-        <!--copy/paste additional elements above if there are remakes-->
-        <header id="js-remakes-of-movie">
-        </header>
-        <form role="search" id="js-new-search-one-movie-screen">
-            <!-- <button id="js-multi-search-button">Find Similar Movies</button>
-            <button id="js-one-movie-search-button">Search for One Movie</button> -->
+    <section id="js-one-movie-results" class="results">
+        <div id="iFrame-player" src="#" class="results js-trailer"></div>
+        <h1 id="one-movie" class="results"></h1>
+        <section id="one-movie-description" class="results"></section>
+        
+        <form id="js-one-new-search" class="js-new-search">
+            <fieldset class="js-new-search">
+                <button role="button" id="js-new-search-one" class="js-new-search">Search for a Movie</button>
+            </fieldset>      
         </form>
     </section>
 <!--/////////////////////////////END (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
 
 <!--/////////////////////////////SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
-    <section id="js-similar-movie-results">
-        <header role="header">
+    <section id="js-similar-movie-results" class="results">
+        <header role="header" class="results">
             <h1></h1>
         </header>
-        <ul id="js-similar-movies-list">
+        <ul id="js-similar-movies-list" class="results">
         </ul>
-        <section>
-        </section>
-        <video>Watch Trailer: </video>
-        <form role="search" id="js-new-search-similars-screen">
-            <!-- <button id="js-multi-search-button">Find Similar Movies</button>
-            <button id="js-one-movie-search-button">Search for One Movie</button> -->
+        <form id="js-multi-new-search" class="js-new-search">
+            <fieldset class="js-new-search">
+                <button role="button"  id="js-new-multi-search-option" class="js-new-search">Find Similar Movies</button>
+            </fieldset>      
         </form>
     </section>
 <!--/////////////////////////////END SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
@@ -108,12 +104,6 @@
         <section id="credits">
             <img id="tmdb-logo" alt="The Movie Data Base">
         </section>
-        <form>
-            <fieldset id="new-search-options">
-                <button role="button" id="js-new-search-one">Search for a Movie</button>
-                <button role="button"  id="js-new-multi-search-option">Find Similar Movies</button>
-            </fieldset>      
-        </form>
     </footer>
 <script
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
