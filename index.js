@@ -41,6 +41,10 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
                throw new Error(response.statusText);
             })
            .then(responseJson => {
+               if(responseJson.hasOwnProperty("Response") && responseJson.hasOwnProperty("Error")) {
+                throw new Error(responseJson.Error);
+               }
+
                 parseMovieInfo(responseJson, query);
                 
             }).catch(err => console.log("Oh the HORROR! Something went wrong :(", err));
@@ -113,7 +117,8 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
 //display information related to search results for one movie
     function displayMovieInfo(title, year, plot, rating) {
         let movieInfoString = `<h3>${title} (${year})</h3>
-        <aside>IMDB Rating: ${rating} <br>${plot}</aside>
+        <aside>IMDB Rating: ${rating}</aside>
+        <article>${plot}</article>
         <video></video>`;
         $("#one-movie-description").html(movieInfoString);
     }
@@ -128,32 +133,43 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
     function displaySimilarMovies(movies, maxResults) {
         $("li").detach();
         for(let i = 0; i < maxResults; i++) {
-            let movie = `<li>${movies[i]}</li>`;
+            let movie = `<li class="results">${movies[i]}</li>`;
             $("ul").append(movie);         
         }
     }
+<<<<<<< HEAD
 //main screen button
     function handleOneSearchButton() {
+=======
+//show one movie search screen
+    function handleOneSearch() {
+>>>>>>> new-search
             $("#search-screen-header").hide();
         $("#js-search-one").on("click", event => {
             event.preventDefault();
             $("#main-screen-header").hide();
+            $("#similars-search-screen-header").hide();
             $("#js-multi-search-option").hide();
             $("#js-search-one").show();
             $("#js-single-search-option").show();
             $("#search-screen-header").show();
         });
     }
+<<<<<<< HEAD
 //main screen button
     function handleMultiSearchButton() {
+=======
+    //show similar movies search screen
+    function handleMultiSearch() {
+>>>>>>> new-search
         $("#js-multi-search-option").on("click", event => {
             event.preventDefault();    
             $("#main-screen-header").hide();
             $("#js-search-one").hide();
             $("#js-multi-search-option").hide();
+            $("#similars-search-screen-header").show();
             $("#js-multi-search-button").show();
             $("#similar-movies-search").show();
-            $("#search-screen-header").show();
         });
     }
     function handleOneSubmitButton() {
@@ -168,6 +184,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             //$("#search-screen-header").hide();
             $("#js-search-one").show();
             $("#js-one-movie-results").show();
+            $("#js-one-new-search").show();
         });
     }
 
@@ -182,22 +199,36 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             $("#js-search-one").hide();
             $("#js-one-movie-results").hide();     
             $("#js-similar-movie-results").show();
+            $("#js-one-new-search").show();
+            $("#js-multi-new-search").show();
         })
     }
-    function handleNewSearchForOne() {
+    function handleNewSearchOne() {
+        $("#js-new-search-one").on("submit", event => {
+            event.preventDefault();
+            // $("#js-one-new-search").hide();
+            // $("#js-multi-new-search").hide();
+            $("#one-movie-search").show();
+        })
+
         
     }
 
-    function handleNewSearchForMulti() {
-        
-
-    }
-    
+    // function handleNewSearchMulti() {
+    //     $("#js-multi-new-search").on("submit", event => {
+    //         event.preventDefault();
+    //         $(".search").show();
+    //         // $("#js-one-new-search").hide();
+    //         // $("#js-multi-new-search").hide();
+    //         // $(".search").show();
+    //         // handleMultiSubmitButton();
+    //     });
+    // }
 
     function initApp() {
-        handleOneSearchButton();
+        handleOneSearch();
         handleOneSubmitButton();
-        handleMultiSearchButton();
+        handleMultiSearch();
         handleMultiSubmitButton();
 
     }

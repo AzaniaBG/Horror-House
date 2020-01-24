@@ -35,7 +35,11 @@ button:hover {
 /* ************************ MAIN SCREEN ****************************** */
 
 /* show two search options*/
+<<<<<<< HEAD
 #similar-movies-search, #js-search-one {
+=======
+#one-movie-search, #similar-movies-search, #similars-search-screen-header, #js-one-new-search, #js-multi-new-search {
+>>>>>>> new-search
     display: none;
 }
 
