@@ -129,7 +129,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
     function displaySimilarMovies(movies, maxResults) {
         $("li").detach();
         for(let i = 0; i < maxResults; i++) {
-            let movie = `<li>${movies[i]}</li>`;
+            let movie = `<li class="results">${movies[i]}</li>`;
             $("ul").append(movie);         
         }
     }
@@ -170,6 +170,7 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             //$("#search-screen-header").hide();
             $("#one-movie-search").show();
             $("#js-one-movie-results").show();
+            $("#js-one-new-search").show();
         });
     }
 
@@ -184,24 +185,37 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             $("#one-movie-search").hide();
             $("#js-one-movie-results").hide();     
             $("#js-similar-movie-results").show();
+            $("#js-one-new-search").show();
+            $("#js-multi-new-search").show();
         })
     }
-    function handleNewSearch() {
+    function handleNewSearchOne() {
+        $("#js-new-search-one").on("submit", event => {
+            event.preventDefault();
+            // $("#js-one-new-search").hide();
+            // $("#js-multi-new-search").hide();
+            $("#one-movie-search").show();
+        })
+
         
     }
 
-    function handleNewSearchForMulti() {
-        
-
-    }
-    
+    // function handleNewSearchMulti() {
+    //     $("#js-multi-new-search").on("submit", event => {
+    //         event.preventDefault();
+    //         $(".search").show();
+    //         // $("#js-one-new-search").hide();
+    //         // $("#js-multi-new-search").hide();
+    //         // $(".search").show();
+    //         // handleMultiSubmitButton();
+    //     });
+    // }
 
     function initApp() {
         handleOneSearch();
         handleOneSubmitButton();
         handleMultiSearch();
         handleMultiSubmitButton();
-        handleNewSearch();
 
     }
     

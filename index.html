@@ -43,7 +43,7 @@
     </section>
     <!--/////////////////////////////SEARCH SCREEN///////////////////////////////--> 
 
-    <form role="search">   
+    <form role="search" class="form search">   
         <fieldset id="one-movie-search" class="search one-movie">
             <label class="form one-movie"><h3>Search for a Movie.</h3>
                 <input id="js-one-movie-search" class="search one-movie">
@@ -77,12 +77,6 @@
         <div id="iFrame-player" src="#" class="results js-trailer"></div>
         <h1 id="one-movie" class="results"></h1>
         <section id="one-movie-description" class="results"></section>
-        
-        <form id="js-one-new-search" class="js-new-search">
-            <fieldset class="js-new-search">
-                <button role="button" id="js-new-search-one" class="js-new-search">Search for a Movie</button>
-            </fieldset>      
-        </form>
     </section>
 <!--/////////////////////////////END (1) MOVIE SEARCH RESULT SCREEN///////////////////////////////-->
 
@@ -93,12 +87,15 @@
         </header>
         <ul id="js-similar-movies-list" class="results">
         </ul>
-        <form id="js-multi-new-search" class="js-new-search">
-            <fieldset class="js-new-search">
-                <button role="button"  id="js-new-multi-search-option" class="js-new-search">Find Similar Movies</button>
-            </fieldset>      
-        </form>
     </section>
+    <!--/////////////////////////////NEW  SEARCH  SCREEN///////////////////////////////-->
+    <form id="js-one-new-search" class="js-new-search">
+        <fieldset class="js-new-search">
+            <button role="button" id="js-results-new-search-one" class="js-new-search">New Movie Search</button>
+            <button role="button"  id="js-results-new-multi-search" class="js-new-search">Find Similar Movies</button>
+        </fieldset>      
+    </form>
+    
 <!--/////////////////////////////END SIMILAR MOVIES SEARCH RESULT SCREEN///////////////////////////////-->
     <footer role="img">
         <section id="credits">
