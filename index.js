@@ -137,13 +137,10 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             $("ul").append(movie);         
         }
     }
-<<<<<<< HEAD
 //main screen button
     function handleOneSearchButton() {
-=======
 //show one movie search screen
     function handleOneSearch() {
->>>>>>> new-search
             $("#search-screen-header").hide();
         $("#js-search-one").on("click", event => {
             event.preventDefault();
@@ -155,13 +152,10 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
             $("#search-screen-header").show();
         });
     }
-<<<<<<< HEAD
 //main screen button
     function handleMultiSearchButton() {
-=======
     //show similar movies search screen
     function handleMultiSearch() {
->>>>>>> new-search
         $("#js-multi-search-option").on("click", event => {
             event.preventDefault();    
             $("#main-screen-header").hide();
