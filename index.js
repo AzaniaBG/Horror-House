@@ -41,6 +41,10 @@ const YouTubeURL = "https://www.googleapis.com/youtube/v3/"
                throw new Error(response.statusText);
             })
            .then(responseJson => {
+               if(responseJson.hasOwnProperty("Response") && responseJson.hasOwnProperty("Error")) {
+                throw new Error(responseJson.Error);
+               }
+
                 parseMovieInfo(responseJson, query);
                 
             }).catch(err => console.log("Oh the HORROR! Something went wrong :(", err));
